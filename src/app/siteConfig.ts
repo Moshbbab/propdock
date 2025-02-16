@@ -5,7 +5,7 @@ export const siteConfig = {
     "Avansert plattform for verdivurdering og verdsettelse av næringseiendom. Få innsikt med DCF-analyser, yield-beregninger og markedsdata for bedre investeringsbeslutninger.",
   baseLinks: {
     home: "/",
-    about: "/about",
+    about: "/om-oss",
     changelog: "/changelog",
     pricing: "/pricing",
     tjenester: "/tjenester",

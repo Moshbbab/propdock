@@ -6,12 +6,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Core pages
   const routes = [
     "",
+    "/om-oss",
     "/tjenester",
     "/tjenester/verdsettelse",
-    "/tjenester/verdivurdering/dcf",
-    "/tjenester/verdivurdering/yield",
-    "/tjenester/verdivurdering/sensitivitet",
-    "/tjenester/verdivurdering/sammenligning",
     "/markedsinnsikt",
     "/kontakt",
   ].map((route) => ({
