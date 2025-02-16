@@ -1,8 +1,85 @@
 import clsx, { type ClassValue } from "clsx"
+import { Metadata } from "next"
 import { twMerge } from "tailwind-merge"
-
 export function cx(...args: ClassValue[]) {
   return twMerge(clsx(...args))
+}
+
+export function constructMetadata({
+  title = "Propdock - Intelligent verdsettelse av næringseiendom",
+  description = "Avansert plattform for verdivurdering og verdsettelse av næringseiendom. Få innsikt med DCF-analyser, yield-beregninger og markedsdata for bedre investeringsbeslutninger.",
+  image = "/opengraph-image.png",
+  icons = "/favicon.ico",
+  noIndex = false,
+}: {
+  title?: string
+  description?: string
+  image?: string
+  icons?: string
+  noIndex?: boolean
+} = {}): Metadata {
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      images: [
+        {
+          url: image,
+          width: 1200,
+          height: 630,
+          alt: "Propdock - Intelligent verdsettelse og verdivurdering av næringseiendom",
+        },
+      ],
+      locale: "nb_NO",
+      type: "website",
+      siteName: "Propdock",
+      url: "https://propdock.no",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [image],
+      creator: "@propdock",
+      site: "@propdock",
+    },
+    icons: {
+      icon: icons,
+      shortcut: icons,
+      apple: icons,
+    },
+    metadataBase: new URL("https://propdock.no"),
+    authors: [{ name: "Propdock", url: "https://propdock.no" }],
+    keywords: [
+      "verdsettelse næringseiendom",
+      "verdivurdering eiendom",
+      "DCF-analyse",
+      "yield-beregning",
+      "eiendomsanalyse",
+      "markedsanalyse næringseiendom",
+      "porteføljestyring",
+      "kontantstrømanalyse",
+      "sensitivitetsanalyse",
+      "avkastningsberegning",
+      "næringsmegling",
+      "eiendomsinvestering",
+      "markedsverdi næringseiendom",
+      "eiendomsportefølje",
+      "investeringsanalyse",
+    ],
+    category: "Eiendomsanalyse",
+    alternates: {
+      canonical: "https://propdock.no",
+    },
+    ...(noIndex && {
+      robots: {
+        index: false,
+        follow: false,
+      },
+    }),
+  }
 }
 
 // Tremor Raw focusInput [v0.0.1]

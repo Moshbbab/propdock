@@ -1,5 +1,6 @@
 import { AnimatedGridPattern } from "@/components/ui/Animated-Grid-Background"
 import { FadeContainer, FadeSpan } from "@/components/ui/Fade"
+import { constructMetadata } from "@/lib/utils"
 import {
   RiBarChartBoxLine,
   RiDatabaseLine,
@@ -8,11 +9,11 @@ import {
 } from "@remixicon/react"
 import Link from "next/link"
 
-export const metadata = {
-  title: "Avansert verdivurdering av næringseiendom | Propdock",
+export const metadata = constructMetadata({
+  title: "Verdsettelse og verdivurdering av næringseiendom | Propdock",
   description:
-    "Propdock tilbyr markedsledende verktøy for verdivurdering av næringseiendom. Få tilgang til avanserte DCF-modeller, yield-analyser og markedsdata for presise verdivurderinger.",
-}
+    "Avanserte verktøy for verdsettelse av næringseiendom. Fra DCF-analyser og yield-beregninger til sensitivitetsanalyser - få innsikt i den reelle verdien av din eiendom.",
+})
 
 export default function TjenesterPage() {
   return (
@@ -20,18 +21,18 @@ export default function TjenesterPage() {
       <section aria-label="hero">
         <FadeContainer className="relative mx-auto flex max-w-6xl flex-col items-center justify-center">
           <h1 className="mt-8 text-center text-5xl font-semibold tracking-tighter text-warm-grey sm:text-8xl sm:leading-[5.5rem] dark:text-warm-white">
-            <FadeSpan>Avansert analyse og</FadeSpan>{" "}
-            <FadeSpan>verdivurdering for</FadeSpan>
+            <FadeSpan>Profesjonell</FadeSpan>{" "}
+            <FadeSpan>verdivurdering av</FadeSpan>
             <br />
             <FadeSpan>næringseiendom</FadeSpan>
           </h1>
 
           <p className="mt-5 max-w-xl text-balance text-center text-base text-warm-grey-2 sm:mt-8 sm:text-xl">
             <FadeSpan>
-              Kombiner sanntids markedsdata med sofistikerte analyseverktøy
+              Fra avanserte DCF-analyser til yield-beregninger -
             </FadeSpan>{" "}
-            <FadeSpan>for presise verdivurderinger og</FadeSpan>{" "}
-            <FadeSpan>optimale investeringsbeslutninger</FadeSpan>
+            <FadeSpan>få innsikt i den reelle verdien</FadeSpan>{" "}
+            <FadeSpan>av din eiendom</FadeSpan>
           </p>
 
           <div className="absolute inset-0 -z-10 flex items-center justify-center overflow-hidden">
@@ -78,31 +79,27 @@ export default function TjenesterPage() {
 
 const mainFeatures = [
   {
-    title: "Avansert DCF",
-    description:
-      "Sofistikerte kontantstrømanalyser med scenario-modellering og risikojustering",
+    title: "DCF-Analyse",
+    description: "Detaljerte kontantstrømanalyser med flere scenarioer",
     icon: RiLineChartLine,
     href: "/tjenester/verdivurdering/dcf",
   },
   {
-    title: "Yield-Analyse",
-    description:
-      "Omfattende yield-beregninger med markedsdata og sammenlignbare transaksjoner",
+    title: "Yield-Beregning",
+    description: "Nøyaktige yield-beregninger basert på markedsdata",
     icon: RiPieChartLine,
     href: "/tjenester/verdivurdering/yield",
   },
   {
-    title: "Markedsdata",
-    description:
-      "Sanntids markedsinnsikt, transaksjoner og nøkkeltall for presise vurderinger",
+    title: "Sensitivitetsanalyse",
+    description: "Analyser hvordan ulike faktorer påvirker verdien",
     icon: RiDatabaseLine,
-    href: "/tjenester/verdivurdering/marked",
+    href: "/tjenester/verdivurdering/sensitivitet",
   },
   {
-    title: "Scenarioanalyse",
-    description:
-      "Simuler ulike scenarioer og optimaliser investeringsparametere",
+    title: "Sammenligning",
+    description: "Sammenlign med lignende eiendommer i markedet",
     icon: RiBarChartBoxLine,
-    href: "/tjenester/verdivurdering/scenario",
+    href: "/tjenester/verdivurdering/sammenligning",
   },
 ]

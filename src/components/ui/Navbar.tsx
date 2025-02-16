@@ -53,7 +53,7 @@ export function Navigation() {
               </Link>
               <Link
                 className="whitespace-nowrap px-2 py-1 text-warm-grey hover:text-warm-grey-3 dark:text-warm-white dark:hover:text-warm-grey-1"
-                href="#"
+                href={siteConfig.baseLinks.tjenester}
               >
                 Tjenester
               </Link>

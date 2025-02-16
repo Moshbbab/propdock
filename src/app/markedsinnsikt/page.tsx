@@ -1,10 +1,12 @@
 import ChartMainPage from "@/components/markedsinnsikt/Chart-main-page"
 import TopKpiCard from "@/components/markedsinnsikt/Top-kpi-card"
+import { constructMetadata } from "@/lib/utils"
 
-export const metadata = {
-  title: "Markedsinnsikt | Advanti",
-  description: "Få innsikt i markedet for næringseiendom ",
-}
+export const metadata = constructMetadata({
+  title: "Markedsinnsikt for næringseiendom | Propdock",
+  description:
+    "Få tilgang til omfattende markedsdata og analyser for næringseiendom. Sanntids markedstrender, yield-analyser og demografiske data for bedre investeringsbeslutninger.",
+})
 
 export default function MarkedsinnsiktPage() {
   return (

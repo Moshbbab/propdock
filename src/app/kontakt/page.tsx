@@ -1,11 +1,12 @@
 import ContactForm from "@/components/forms/ContactForm"
+import { constructMetadata } from "@/lib/utils"
 import { RiMailLine, RiMapPin2Line, RiPhoneLine } from "@remixicon/react"
 
-export const metadata = {
+export const metadata = constructMetadata({
   title: "Kontakt oss | Propdock",
   description:
-    "Ta kontakt med oss for en uforpliktende samtale om dine behov innen næringseiendom.",
-}
+    "Ta kontakt med oss for å lære mer om hvordan Propdock kan hjelpe deg med verdsettelse og analyse av næringseiendom.",
+})
 
 export default function KontaktPage() {
   return (
@@ -57,10 +58,10 @@ export default function KontaktPage() {
                   </p>
                   <p className="text-warm-grey-2 dark:text-warm-grey-1">
                     <a
-                      href="mailto:post@advanti.no"
+                      href="mailto:post@propdock.no"
                       className="hover:text-warm-grey-3 dark:hover:text-warm-grey-1"
                     >
-                      post@advanti.no
+                      post@propdock.no
                     </a>
                   </p>
                 </dd>

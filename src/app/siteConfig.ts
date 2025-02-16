@@ -1,12 +1,14 @@
 export const siteConfig = {
-  name: "Propdock - Næringsmegler i Nord-Norge",
+  name: "Propdock - Intelligent verdsettelse av næringseiendom",
   url: "https://propdock.no",
-  description: "Din ledende næringsmegler i Nord-Norge.",
+  description:
+    "Avansert plattform for verdivurdering og verdsettelse av næringseiendom. Få innsikt med DCF-analyser, yield-beregninger og markedsdata for bedre investeringsbeslutninger.",
   baseLinks: {
     home: "/",
     about: "/about",
     changelog: "/changelog",
     pricing: "/pricing",
+    tjenester: "/tjenester",
     imprint: "/imprint",
     privacy: "/privacy",
     terms: "/terms",
