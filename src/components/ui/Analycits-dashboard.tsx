@@ -23,13 +23,13 @@ export default function AnalyticsDashboard() {
         </p>
         <div className="mb-2 mt-6 flex flex-wrap gap-4">
           <Link
-            href="/propdock/marked"
+            href="#"
             className="inline-flex items-center justify-center rounded-md bg-warm-grey px-5 py-2.5 text-sm font-medium text-warm-white shadow-lg transition-colors hover:bg-warm-grey-2 dark:bg-warm-grey-2 dark:hover:bg-warm-grey-1"
           >
             Utforsk markedsdata
           </Link>
           <Link
-            href="/propdock/rapporter"
+            href="#"
             className="inline-flex items-center justify-center rounded-md border border-warm-grey/20 bg-transparent px-5 py-2.5 text-sm font-medium text-warm-grey shadow-lg transition-colors hover:bg-warm-grey/5 dark:border-warm-white/20 dark:text-warm-white dark:hover:bg-warm-white/5"
           >
             Last ned markedsrapport

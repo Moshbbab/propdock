@@ -20,7 +20,7 @@ const buttonVariants = tv({
     variant: {
       primary: [
         // border
-        "border-transparent",
+        "border-transparent dark:border-warm-white/20",
         // text color
         "text-warm-white dark:text-warm-white",
         // background color
@@ -33,7 +33,7 @@ const buttonVariants = tv({
       ],
       secondary: [
         // border
-        "border-warm-grey-1 dark:border-warm-grey-2",
+        "border-warm-grey-1 dark:border-warm-white/20",
         // text color
         "text-warm-grey dark:text-warm-white",
         // background color
@@ -48,7 +48,7 @@ const buttonVariants = tv({
         // base
         "shadow-none",
         // border
-        "border-transparent",
+        "border-transparent dark:border-warm-white/20",
         // text color
         "text-warm-grey dark:text-warm-white",
         // background color
@@ -63,7 +63,7 @@ const buttonVariants = tv({
         // base
         "shadow-none",
         // border
-        "border-transparent",
+        "border-transparent dark:border-warm-white/20",
         // text color
         "text-warm-grey dark:text-warm-white",
         // hover color
@@ -76,7 +76,7 @@ const buttonVariants = tv({
         // text color
         "text-warm-white",
         // border
-        "border-transparent",
+        "border-transparent dark:border-warm-white/20",
         // background color
         "bg-red-600 dark:bg-red-700",
         // hover color

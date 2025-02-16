@@ -19,42 +19,42 @@ const features = [
     description:
       "Omfattende verktøy for DCF-analyse, yield-beregninger og sensitivitetsanalyser.",
     icon: RiLineChartLine,
-    href: "/propdock/simulering",
+    href: "/tjenester",
   },
   {
     title: "Markedsanalyse",
     description:
       "Få innsikt i markedstrender, sammenlignbare eiendommer og demografiske data.",
     icon: RiPieChartLine,
-    href: "/propdock/marked",
+    href: "/tjenester",
   },
   {
     title: "Porteføljestyring",
     description:
       "Oversikt over eiendomsporteføljen med nøkkeltall, ytelse og optimeringsmuligheter.",
     icon: RiBuildingLine,
-    href: "/propdock/portefolje",
+    href: "/tjenester",
   },
   {
     title: "Scenariomodellering",
     description:
       "Simuler ulike investeringsscenarier og sammenlign resultater for bedre beslutninger.",
     icon: RiStackLine,
-    href: "/propdock/simulering",
+    href: "/tjenester",
   },
   {
     title: "Markedsdata",
     description:
       "Tilgang til sanntidsdata og markedsinformasjon for bedre analyser og beslutninger.",
     icon: RiDatabaseLine,
-    href: "/propdock/marked",
+    href: "/tjenester",
   },
   {
     title: "Finansiell analyse",
     description:
       "Detaljerte finansielle beregninger inkludert yield, ROI og kontantstrømanalyser.",
     icon: RiBarChartBoxLine,
-    href: "/propdock/simulering",
+    href: "/tjenester",
   },
 ]
 

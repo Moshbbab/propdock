@@ -5,14 +5,14 @@ import ThemeSwitch from "../ThemeSwitch"
 
 const navigation = {
   produkter: [
-    { name: "Simulering", href: "/propdock/simulering", external: false },
-    { name: "Markedsanalyse", href: "/propdock/marked", external: false },
+    { name: "Simulering", href: "#", external: false },
+    { name: "Markedsanalyse", href: "#", external: false },
     {
       name: "Porteføljestyring",
-      href: "/propdock/portefolje",
+      href: "#",
       external: false,
     },
-    { name: "Rapporter", href: "/propdock/rapporter", external: false },
+    { name: "Rapporter", href: "#", external: false },
   ],
   ressurser: [
     { name: "Dokumentasjon", href: "#", external: false },
