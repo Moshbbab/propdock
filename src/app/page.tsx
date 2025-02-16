@@ -22,11 +22,13 @@ export default function Home() {
       </div>
       <LogoCloud />
       <FeatureDivider className="-mb-24 mt-24 max-w-6xl" />
-      <Features2 />
+      <AnalycitsDashboard />
+
       <CtaMiddle />
       <FeatureDivider className="-mb-24 mt-24 max-w-6xl" />
 
-      <AnalycitsDashboard />
+      <Features2 />
+
       <Cta />
     </main>
   )
