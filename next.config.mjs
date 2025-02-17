@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
-import createMDX from "@next/mdx"
+import { withContentCollections } from "@content-collections/next";
+import createMDX from "@next/mdx";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -8,11 +9,30 @@ const nextConfig = {
   // Optionally, add any other Next.js config below
   eslint: { ignoreDuringBuilds: true },
   typescript: { ignoreBuildErrors: true },
+  images: {
+    domains: ["imagedelivery.net", "avatar.vercel.sh"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "imagedelivery.net",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "avatar.vercel.sh",
+        port: "",
+        pathname: "/**",
+      },
+    ],
+  },
 }
 
 const withMDX = createMDX({
   // Add markdown plugins here, as desired
 })
 
-// Merge MDX config with Next.js config
-export default withMDX(nextConfig)
+// Merge MDX config with Next.js config and Content Collections
+export default withContentCollections(withMDX(nextConfig));
+
+

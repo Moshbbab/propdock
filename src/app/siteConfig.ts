@@ -14,6 +14,7 @@ export const siteConfig = {
     terms: "/terms",
     markedsinnsikt: "/markedsinnsikt",
     kontakt: "/kontakt",
+    blog: "/blog",
   },
 }
 
