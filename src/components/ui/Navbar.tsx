@@ -117,7 +117,7 @@ export function Navigation() {
             <li onClick={() => setOpen(false)}>
               <Link
                 className="hover:text-warm-grey-3 dark:hover:text-warm-grey-1"
-                href={siteConfig.baseLinks.blog}
+                href={siteConfig.baseLinks.changelog}
               >
                 Artikler
               </Link>

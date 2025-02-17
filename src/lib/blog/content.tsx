@@ -37,11 +37,12 @@ export const BLOG_CATEGORIES = [
 ]
 
 export const POPULAR_ARTICLES = [
-  "hva-er-propdock",
-  "kom-i-gang",
-  "verdivurderingsmetoder",
-  "markedsinnsikt",
-  "kundehistorier",
+  "become-provider",
+  "become-provider",
+  "become-provider",
+  "become-provider",
+  "become-provider",
+  "become-provider",
 ]
 
 export const HELP_CATEGORIES: {
