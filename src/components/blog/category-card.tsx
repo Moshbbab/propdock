@@ -1,6 +1,11 @@
 "use client"
 
-import { motion, useMotionTemplate, useMotionValue } from "framer-motion"
+import {
+  motion,
+  MotionValue,
+  useMotionTemplate,
+  useMotionValue,
+} from "framer-motion"
 import Link from "next/link"
 
 import { useId } from "react"
@@ -60,7 +65,15 @@ function GridPattern({
   )
 }
 
-function CardPattern({ mouseX, mouseY, ...gridProps }) {
+function CardPattern({
+  mouseX,
+  mouseY,
+  ...gridProps
+}: {
+  mouseX: MotionValue<number>
+  mouseY: MotionValue<number>
+  [key: string]: any
+}) {
   let maskImage = useMotionTemplate`radial-gradient(180px at ${mouseX}px ${mouseY}px, white, transparent)`
   let style = { maskImage, WebkitMaskImage: maskImage }
 
@@ -71,12 +84,12 @@ function CardPattern({ mouseX, mouseY, ...gridProps }) {
           width={72}
           height={56}
           x="50%"
-          className="absolute inset-x-0 inset-y-[-30%] h-[160%] w-full skew-y-[-18deg] fill-black/[0.02] stroke-black/5"
+          className="absolute inset-x-0 inset-y-[-30%] h-[160%] w-full skew-y-[-18deg] fill-warm-grey-2/[0.02] stroke-warm-grey-2/5"
           {...gridProps}
         />
       </div>
       <motion.div
-        className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#e4dffb] to-[#d7ede4] opacity-0 transition duration-300 group-hover:opacity-100"
+        className="absolute inset-0 rounded-2xl bg-gradient-to-r from-warm-grey-2/20 to-warm-grey-1/20 opacity-0 transition duration-300 group-hover:opacity-100"
         style={style}
       />
       <motion.div
@@ -87,7 +100,7 @@ function CardPattern({ mouseX, mouseY, ...gridProps }) {
           width={72}
           height={56}
           x="50%"
-          className="absolute inset-x-0 inset-y-[-30%] h-[160%] w-full skew-y-[-18deg] fill-black/50 stroke-black/70"
+          className="absolute inset-x-0 inset-y-[-30%] h-[160%] w-full skew-y-[-18deg] fill-warm-grey-2/50 stroke-warm-grey-2/70"
           {...gridProps}
         />
       </motion.div>
@@ -114,7 +127,15 @@ export default function CategoryCard({
   let mouseX = useMotionValue(0)
   let mouseY = useMotionValue(0)
 
-  function onMouseMove({ currentTarget, clientX, clientY }) {
+  function onMouseMove({
+    currentTarget,
+    clientX,
+    clientY,
+  }: {
+    currentTarget: HTMLDivElement
+    clientX: number
+    clientY: number
+  }) {
     let { left, top } = currentTarget.getBoundingClientRect()
     mouseX.set(clientX - left)
     mouseY.set(clientY - top)
@@ -124,19 +145,21 @@ export default function CategoryCard({
     <div
       key={href}
       onMouseMove={onMouseMove}
-      className="group relative flex rounded-2xl bg-gray-50 transition-shadow hover:shadow-md hover:shadow-gray-900/5"
+      className="group relative flex rounded-2xl bg-warm-grey-2/10 backdrop-blur-sm transition-shadow hover:shadow-lg hover:shadow-warm-grey-2/5"
     >
       <CardPattern {...pattern} mouseX={mouseX} mouseY={mouseY} />
-      <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-200 group-hover:ring-gray-900/10" />
+      <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-warm-grey-2/20 group-hover:ring-warm-grey-2/30" />
       <div className="relative rounded-2xl p-6 pt-16">
-        {icon}
-        <h3 className="mt-4 font-semibold leading-7 text-gray-900">
+        <div className="[&>*]:text-warm-white/60 [&>*]:group-hover:text-warm-white/80">
+          {icon}
+        </div>
+        <h3 className="mt-4 font-semibold leading-7 text-warm-white">
           <Link href={href}>
             <span className="absolute inset-0 rounded-2xl" />
             {name}
           </Link>
         </h3>
-        <p className="mt-1 text-sm text-gray-600">{description}</p>
+        <p className="mt-1 text-sm text-warm-white/80">{description}</p>
       </div>
     </div>
   )

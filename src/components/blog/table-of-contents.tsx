@@ -2,7 +2,6 @@
 
 import useCurrentAnchor from "@/lib/blog/use-current-anchor"
 import { cx } from "@/lib/utils"
-import { motion } from "framer-motion"
 import Link from "next/link"
 
 export default function TableOfContents({
@@ -16,34 +15,25 @@ export default function TableOfContents({
   const currentAnchor = useCurrentAnchor()
 
   return (
-    <div className="border-border relative grid gap-4 border-l-2">
-      {items.map((item) => {
-        const isActive = currentAnchor === item.slug
-        return (
-          <div key={item.slug} className="relative">
-            {isActive && (
-              <motion.div
-                layoutId="active-indicator"
-                className="border-foreground absolute -left-0.5 h-full border-l-2"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.2 }}
-              />
-            )}
-            <Link
-              href={`#${item.slug}`}
-              className={cx(
-                "text-muted-foreground hover:text-foreground -ml-0.5 block pl-4 text-sm transition-colors",
-                {
-                  "text-foreground": isActive,
-                },
-              )}
-            >
-              {item.title}
-            </Link>
-          </div>
-        )
-      })}
+    <div className="grid gap-4 border-l-2 border-warm-grey-2/20">
+      {items.map((item, idx) => (
+        <Link
+          key={item.slug}
+          href={`#${item.slug}`}
+          className={cx(
+            "-ml-0.5 pl-4 text-sm text-warm-white/60 transition-colors",
+            {
+              "border-l-2 border-warm-white text-warm-white hover:text-warm-white":
+                currentAnchor ? currentAnchor === item.slug : idx === 0,
+              "hover:text-warm-white/80": currentAnchor
+                ? currentAnchor !== item.slug
+                : idx !== 0,
+            },
+          )}
+        >
+          {item.title}
+        </Link>
+      ))}
     </div>
   )
 }

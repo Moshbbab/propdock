@@ -74,51 +74,52 @@ export default async function HelpArticle({
 
   return (
     <>
-      <MaxWidthWrapper className="flex max-w-screen-lg flex-col py-10">
+      <MaxWidthWrapper className="flex max-w-screen-lg flex-col py-10 pt-32 md:pt-40">
         <SearchButton />
       </MaxWidthWrapper>
 
-      <div className="border-border bg-background/50 border shadow-[inset_10px_-50px_94px_0_rgb(199,199,199,0.2)] backdrop-blur-lg dark:shadow-[inset_10px_-50px_94px_0_rgba(0,0,0,0.2)]">
+      <div className="relative">
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-warm-grey-2/20 via-warm-grey-2/20 to-warm-grey-2/20" />
         <MaxWidthWrapper className="grid max-w-screen-lg grid-cols-4 gap-10 py-10">
           <div className="col-span-4 flex flex-col space-y-8 sm:col-span-3 sm:pr-10">
             <div className="flex items-center space-x-2">
               <Link
                 href="/help"
-                className="text-muted-foreground hover:text-foreground whitespace-nowrap text-sm font-medium"
+                className="whitespace-nowrap text-sm font-medium text-warm-white/60 hover:text-warm-white/80"
               >
                 Alle kategorier
               </Link>
-              <RiArrowRightSLine className="text-muted-foreground h-4 w-4" />
+              <RiArrowRightSLine className="h-4 w-4 text-warm-white/60" />
               <Link
                 href={`/help/category/${category.slug}`}
-                className="text-muted-foreground hover:text-foreground whitespace-nowrap text-sm font-medium"
+                className="whitespace-nowrap text-sm font-medium text-warm-white/60 hover:text-warm-white/80"
               >
                 {category.title}
               </Link>
-              <RiArrowRightSLine className="text-muted-foreground h-4 w-4" />
+              <RiArrowRightSLine className="h-4 w-4 text-warm-white/60" />
               <Link
                 href={`/help/article/${data.slug}`}
-                className="text-muted-foreground hover:text-foreground truncate text-sm font-medium"
+                className="truncate text-sm font-medium text-warm-white/60 hover:text-warm-white/80"
               >
                 {data.title}
               </Link>
             </div>
             <div className="flex flex-col space-y-4">
               <Link href={`/help/article/${data.slug}`}>
-                <h1 className="font-display text-foreground text-3xl font-bold !leading-snug sm:text-4xl">
+                <h1 className="font-display text-3xl font-bold !leading-snug text-warm-white sm:text-4xl">
                   {data.title}
                 </h1>
               </Link>
-              <p className="text-muted-foreground">{data.summary}</p>
+              <p className="text-warm-white/80">{data.summary}</p>
               <Author username={data.author} updatedAt={data.updatedAt} />
             </div>
             <MDX code={data.mdx} images={images} />
             {relatedArticles.length > 0 && (
-              <div className="border-border flex flex-col space-y-4 border-t pt-8">
-                <h2 className="font-display text-foreground text-xl font-bold sm:text-2xl">
-                  Relevant articles
+              <div className="flex flex-col space-y-4 border-t border-warm-grey-2/20 pt-8">
+                <h2 className="font-display text-xl font-bold text-warm-white sm:text-2xl">
+                  Relaterte artikler
                 </h2>
-                <div className="border-border bg-card grid gap-2 rounded-xl border p-4">
+                <div className="grid gap-2 rounded-xl border border-warm-grey-2/20 bg-warm-grey-2/10 p-4 backdrop-blur-sm">
                   {relatedArticles.map((article) => (
                     <HelpArticleLink key={article.slug} article={article} />
                   ))}
@@ -127,7 +128,7 @@ export default async function HelpArticle({
             )}
             <Feedback />
           </div>
-          <div className="divide-border sticky top-20 col-span-1 hidden flex-col space-y-10 divide-y self-start sm:flex">
+          <div className="sticky top-32 col-span-1 hidden flex-col space-y-10 divide-y divide-warm-grey-2/20 self-start sm:flex">
             {data.tableOfContents.length > 0 && (
               <TableOfContents items={data.tableOfContents} />
             )}
@@ -136,9 +137,9 @@ export default async function HelpArticle({
                 href={`https://github.com/codehagen/leadhive/blob/main/app/content/help/${params.slug}.mdx`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-foreground text-xs transition-colors"
+                className="text-xs text-warm-white/60 transition-colors hover:text-warm-white/80"
               >
-                Found a typo? Edit this page ↗
+                Fant du en skrivefeil? Rediger denne siden ↗
               </Link>
             </div>
           </div>

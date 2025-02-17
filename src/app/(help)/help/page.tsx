@@ -6,9 +6,9 @@ import { getPopularArticles, HELP_CATEGORIES } from "@/lib/blog/content"
 import { constructMetadata } from "@/lib/utils"
 
 export const metadata = constructMetadata({
-  title: "Help Center – Leadhive",
+  title: "Hjelpesenter – Propdock",
   description:
-    "A central hub for all your Leadhive-related questions. Find answers to common queries, learn how to use our platform, and get expert advice.",
+    "Et sentralt knutepunkt for alle dine Propdock-relaterte spørsmål. Finn svar på vanlige spørsmål, lær hvordan du bruker plattformen, og få ekspertråd.",
 })
 
 export default function HelpCenter() {
@@ -18,7 +18,7 @@ export default function HelpCenter() {
       <MaxWidthWrapper className="max-w-screen-lg pt-32 md:pt-40">
         <div className="flex flex-col space-y-4 py-10">
           <h1 className="font-display text-xl font-bold text-warm-white sm:text-3xl">
-            👋 How can we help today?
+            👋 Hvordan kan vi hjelpe deg i dag?
           </h1>
           <SearchButton />
         </div>
@@ -29,7 +29,7 @@ export default function HelpCenter() {
         <MaxWidthWrapper className="relative max-w-screen-lg pb-20">
           <div className="relative z-10 mb-10 rounded-xl border border-warm-grey-2/20 bg-warm-grey-2/10 p-6 backdrop-blur-sm">
             <h2 className="font-display text-2xl font-bold text-warm-white">
-              Popular Articles
+              Populære artikler
             </h2>
             <div className="mt-4 grid gap-2 md:grid-cols-2">
               {popularArticles.map((article) => (

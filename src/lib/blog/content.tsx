@@ -50,10 +50,10 @@ export const HELP_CATEGORIES: {
   slug:
     | "overview"
     | "getting-started"
-    | "for-users"
-    | "for-providers"
-    | "integrations"
-    | "admin"
+    | "terms"
+    | "for-investors"
+    | "analysis"
+    | "valuation"
   description: string
   icon: JSX.Element
 }[] = [
@@ -72,30 +72,31 @@ export const HELP_CATEGORIES: {
     icon: <RiBarChartBoxLine className="h-6 w-6 text-gray-500" />,
   },
   {
-    title: "Eiendomsforvaltning",
-    slug: "for-users",
+    title: "Begreper",
+    slug: "terms",
     description:
-      "Omfattende verktøy for leietakeradministrasjon og porteføljestyring.",
+      "Lær om viktige begreper og terminologi innen næringseiendom og analyse.",
     icon: <RiBuildingLine className="h-6 w-6 text-gray-500" />,
   },
   {
     title: "For Investorer",
-    slug: "for-providers",
+    slug: "for-investors",
     description:
       "Avanserte analyseverktøy for investeringsbeslutninger og scenariomodellering.",
     icon: <RiFileChartLine className="h-6 w-6 text-gray-500" />,
   },
   {
-    title: "Teamsamarbeid",
-    slug: "integrations",
-    description: "Administrer teamet og samarbeid om eiendomsanalyser.",
+    title: "Markedsanalyse",
+    slug: "analysis",
+    description:
+      "Lær hvordan du bruker markedsdata og trender for bedre investeringsbeslutninger.",
     icon: <RiTeamLine className="h-6 w-6 text-gray-500" />,
   },
   {
-    title: "Innstillinger",
-    slug: "admin",
+    title: "Verdivurdering",
+    slug: "valuation",
     description:
-      "Administrer konto, fakturering og plattforminnstillinger. Tilpass analyseverktøyene.",
+      "Forstå DCF-modeller, yield-analyser og andre verktøy for verdivurdering.",
     icon: <RiSettings4Line className="h-6 w-6 text-gray-500" />,
   },
 ]

@@ -1,5 +1,10 @@
 import { MDXContent } from "@content-collections/mdx/react"
-import { RiListCheck2 } from "@remixicon/react"
+import {
+  RiAlertLine,
+  RiCheckboxCircleLine,
+  RiInformationLine,
+  RiListCheck2,
+} from "@remixicon/react"
 import {
   allBlogPosts,
   allChangelogPosts,
@@ -38,33 +43,30 @@ const CustomLink = (props: any) => {
 const components = {
   h2: (props: any) => (
     <h2
-      className="mb-4 mt-8 scroll-mt-8 text-2xl font-semibold text-warm-white"
+      className="mb-4 mt-8 text-2xl font-semibold text-warm-white underline-offset-4 hover:underline"
       {...props}
     />
   ),
   h3: (props: any) => (
     <h3
-      className="mb-3 mt-6 scroll-mt-8 text-xl font-medium text-warm-white"
+      className="mb-3 mt-6 text-xl font-medium text-warm-white underline-offset-4 hover:underline"
       {...props}
     />
   ),
   a: (props: any) => (
     <CustomLink
-      className="font-medium text-warm-white/80 underline-offset-4 transition-colors hover:text-warm-white"
+      className="font-medium text-warm-white/80 underline-offset-4 hover:text-warm-white"
       {...props}
     />
   ),
   code: (props: any) => (
     <code
-      className="rounded-md border border-warm-grey-2/20 bg-warm-grey-2/20 px-1.5 py-0.5 text-sm font-medium text-warm-white before:hidden after:hidden"
+      className="rounded-md border border-warm-grey-2/20 bg-warm-grey-2/10 px-2 py-1 font-medium text-warm-white before:hidden after:hidden"
       {...props}
     />
   ),
   thead: (props: any) => (
-    <thead
-      className="border-b border-warm-grey-2/20 bg-warm-grey-2/10"
-      {...props}
-    />
+    <thead className="text-lg text-warm-white" {...props} />
   ),
   th: (props: any) => (
     <th className="p-4 text-left font-medium text-warm-white" {...props} />
@@ -83,29 +85,51 @@ const components = {
   ),
   li: (props: any) => (
     <li
-      className="text-base leading-relaxed text-warm-white/80 marker:text-warm-white/60"
+      className="mb-6 text-base leading-relaxed text-warm-white/80 marker:text-warm-white/60"
       {...props}
     />
   ),
   ul: (props: any) => (
-    <ul className="my-4 list-disc space-y-2 pl-6" {...props} />
+    <ul className="my-8 list-disc space-y-6 pl-6" {...props} />
   ),
   ol: (props: any) => (
-    <ol className="my-4 list-decimal space-y-2 pl-6" {...props} />
+    <ol className="my-8 list-decimal space-y-6 pl-6" {...props} />
   ),
-  Note: (props: any) => (
-    <div
-      className={cx(
-        "my-4 rounded-md border-l-4 border-warm-grey-2/20 bg-warm-grey-2/10 px-4 py-3 text-[0.95rem] leading-relaxed text-warm-white/80",
-        {
-          "border-yellow-500/50 bg-yellow-500/10": props.variant === "warning",
-          "border-blue-500/50 bg-blue-500/10": props.variant === "info",
-          "border-green-500/50 bg-green-500/10": props.variant === "success",
-        },
-      )}
-      {...props}
-    />
-  ),
+  Note: (props: {
+    variant?: "info" | "warning" | "success"
+    children: React.ReactNode
+  }) => {
+    const icons = {
+      info: RiInformationLine,
+      warning: RiAlertLine,
+      success: RiCheckboxCircleLine,
+    }
+    const Icon = icons[props.variant || "info"]
+
+    return (
+      <div
+        className={cx(
+          "mt-4 rounded-md border-l-4 px-4 py-1 text-[0.95rem] leading-[1.4rem]",
+          {
+            "border-blue-500 bg-blue-500/10": props.variant === "info",
+            "border-yellow-500 bg-yellow-500/10": props.variant === "warning",
+            "border-green-500 bg-green-500/10": props.variant === "success",
+          },
+        )}
+      >
+        <div className="flex items-start gap-3">
+          <Icon
+            className={cx("mt-0.5 h-5 w-5", {
+              "text-blue-500/80": props.variant === "info",
+              "text-yellow-500/80": props.variant === "warning",
+              "text-green-500/80": props.variant === "success",
+            })}
+          />
+          <div className="flex-1 text-warm-white/80">{props.children}</div>
+        </div>
+      </div>
+    )
+  },
   Quote: (props: {
     author: string
     authorSrc: string
@@ -216,6 +240,17 @@ const components = {
   strong: (props: any) => (
     <strong className="font-semibold text-warm-white" {...props} />
   ),
+  Info: (props: any) => (
+    <div className="my-6 flex items-start gap-4 rounded-lg border border-warm-grey-2/20 bg-warm-grey-2/10 p-6 backdrop-blur-sm">
+      <div className="flex h-6 w-6 shrink-0 items-center justify-center">
+        <RiInformationLine className="h-6 w-6 text-warm-white/60" />
+      </div>
+      <div className="flex-1 text-[0.95rem] leading-relaxed">
+        <div className="font-medium text-warm-white">Fun fact:</div>
+        <div className="mt-1 text-warm-white/80">{props.children}</div>
+      </div>
+    </div>
+  ),
 }
 
 interface MDXProps {
@@ -238,26 +273,14 @@ export function MDX({ code, images, className }: MDXProps) {
     <article
       data-mdx-container
       className={cx(
-        "prose prose-invert max-w-none",
-        "prose-headings:font-display prose-headings:text-warm-white",
-        "prose-h2:mt-8 prose-h2:mb-4 prose-h2:text-2xl prose-h2:font-semibold",
-        "prose-h3:mt-6 prose-h3:mb-3 prose-h3:text-xl prose-h3:font-medium",
+        "prose max-w-none transition-all",
+        "prose-headings:relative prose-headings:scroll-mt-20 prose-headings:font-display prose-headings:font-bold prose-headings:text-warm-white",
         "prose-p:text-warm-white/80 prose-p:leading-relaxed prose-p:my-4",
-        "prose-a:text-warm-white/80 prose-a:underline-offset-4 hover:prose-a:text-warm-white prose-a:transition-colors",
-        "prose-ul:my-4 prose-ul:list-disc prose-ul:pl-6 prose-ul:space-y-2",
-        "prose-ol:my-4 prose-ol:pl-6 prose-ol:space-y-2",
-        "prose-li:text-warm-white/80 prose-li:my-0 marker:prose-li:text-warm-white/60",
-        "prose-code:text-warm-white prose-code:bg-warm-grey-2/20 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md prose-code:border prose-code:border-warm-grey-2/20 prose-code:text-sm",
-        "prose-pre:bg-warm-grey-2/10 prose-pre:border prose-pre:border-warm-grey-2/20 prose-pre:rounded-lg prose-pre:my-4",
-        "prose-strong:text-warm-white prose-strong:font-semibold",
-        "prose-table:w-full prose-table:my-6 prose-table:border prose-table:border-warm-grey-2/20 prose-table:rounded-lg prose-table:overflow-hidden",
-        "prose-thead:bg-warm-grey-2/10",
-        "prose-th:p-4 prose-th:text-left prose-th:font-medium prose-th:text-warm-white",
-        "prose-td:p-4 prose-td:border-t prose-td:border-warm-grey-2/20 prose-td:text-warm-white/80",
-        "prose-img:rounded-lg prose-img:my-6 prose-img:shadow-lg",
-        "prose-blockquote:border-l-4 prose-blockquote:border-warm-grey-2/40 prose-blockquote:pl-6 prose-blockquote:py-1 prose-blockquote:my-4 prose-blockquote:italic prose-blockquote:text-warm-white/70",
-        "prose-hr:my-8 prose-hr:border-warm-grey-2/20",
-        "transition-all",
+        "prose-a:text-warm-white/80 prose-a:underline-offset-4 hover:prose-a:text-warm-white",
+        "prose-code:text-warm-white prose-code:bg-warm-grey-2/10 prose-code:px-2 prose-code:py-1",
+        "prose-li:text-warm-white/80 prose-li:leading-relaxed prose-li:mb-6",
+        "prose-ul:my-8 prose-ul:space-y-6",
+        "prose-ol:my-8 prose-ol:space-y-6",
         className,
       )}
     >
