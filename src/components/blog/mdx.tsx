@@ -2,6 +2,7 @@ import { MDXContent } from "@content-collections/mdx/react"
 import {
   RiAlertLine,
   RiCheckboxCircleLine,
+  RiFunctions,
   RiInformationLine,
   RiListCheck2,
 } from "@remixicon/react"
@@ -16,6 +17,8 @@ import BlurImage from "@/lib/blog/blur-image"
 import { HELP_CATEGORIES, POPULAR_ARTICLES } from "@/lib/blog/content"
 import { cx, formatDate } from "@/lib/utils"
 
+import "katex/dist/katex.min.css"
+import { BlockMath, InlineMath } from "react-katex"
 import CategoryCard from "./category-card"
 import CopyBox from "./copy-box"
 import HelpArticleLink from "./help-article-link"
@@ -250,6 +253,47 @@ const components = {
         <div className="mt-1 text-warm-white/80">{props.children}</div>
       </div>
     </div>
+  ),
+  Math: (props: {
+    formula: string
+    description?: string
+    mode?: "inline" | "block"
+    className?: string
+  }) => (
+    <div
+      className={cx(
+        "my-6 flex flex-col space-y-2 rounded-lg border border-warm-grey-2/20 bg-warm-grey-2/10 px-6 py-4 backdrop-blur-sm",
+        props.className,
+      )}
+    >
+      <div className="flex items-center gap-3">
+        <RiFunctions className="h-5 w-5 text-warm-white/60" />
+        <div className="text-lg font-medium text-warm-white">Formel</div>
+      </div>
+      <div className="w-full overflow-x-auto">
+        <div
+          className={cx(
+            "min-w-fit text-center",
+            props.mode === "inline" ? "py-2" : "py-4",
+          )}
+        >
+          {props.mode === "inline" ? (
+            <InlineMath math={props.formula} />
+          ) : (
+            <BlockMath math={props.formula} />
+          )}
+        </div>
+      </div>
+      {props.description && (
+        <p className="text-sm text-warm-white/70">{props.description}</p>
+      )}
+    </div>
+  ),
+  // For inline math within text
+  InlineMath: (props: { formula: string }) => (
+    <span className="mx-1">
+      <InlineMath math={props.formula} />
+    </span>
   ),
 }
 

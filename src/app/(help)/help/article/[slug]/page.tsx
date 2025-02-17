@@ -26,7 +26,8 @@ export async function generateMetadata({
 }: {
   params: { slug: string }
 }): Promise<Metadata | undefined> {
-  const post = allHelpPosts.find((post) => post.slug === params.slug)
+  const { slug } = await params
+  const post = allHelpPosts.find((post) => post.slug === slug)
   if (!post) {
     return
   }
@@ -49,7 +50,8 @@ export default async function HelpArticle({
     slug: string
   }
 }) {
-  const data = allHelpPosts.find((post) => post.slug === params.slug)
+  const { slug } = await params
+  const data = allHelpPosts.find((post) => post.slug === slug)
   if (!data) {
     notFound()
   }
@@ -134,7 +136,7 @@ export default async function HelpArticle({
             )}
             <div className="flex justify-center pt-5">
               <Link
-                href={`https://github.com/codehagen/leadhive/blob/main/app/content/help/${params.slug}.mdx`}
+                href={`https://github.com/codehagen/leadhive/blob/main/app/content/help/${slug}.mdx`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-xs text-warm-white/60 transition-colors hover:text-warm-white/80"

@@ -37,3 +37,8 @@ yarn-error.log*
 next-env.d.ts
 
 .cursor
+
+# content collections
+.content-collections/
+.content-collections/cache/
+.content-collections/generated/ 
