@@ -1,15 +1,40 @@
 import { MetadataRoute } from "next"
+import { headers } from "next/headers"
 
-export default function robots(): MetadataRoute.Robots {
+export default async function robots(): Promise<MetadataRoute.Robots> {
+  const headersList = await headers()
+  const domain = headersList.get("host") ?? "propdock.no"
+  const protocol = process.env.NODE_ENV === "development" ? "http" : "https"
+  const baseUrl = `${protocol}://${domain}`
+
   return {
     rules: [
       {
         userAgent: "*",
-        allow: "/",
-        disallow: ["/propdock/", "/api/", "/admin/", "/_next/", "/static/"],
+        allow: [
+          "/",
+          "/help/*",
+          "/blog/*",
+          "/om-oss",
+          "/tjenester/*",
+          "/markedsinnsikt/*",
+          "/kontakt",
+          "/early-access",
+        ],
+        disallow: [
+          "/api/",
+          "/_next/",
+          "/static/",
+          "/propdock/*",
+          "/admin/*",
+          "/dashboard/*",
+          "/settings/*",
+          "/auth/*",
+          "/private/*",
+        ],
       },
     ],
-    sitemap: "https://propdock.no/sitemap.xml",
-    host: "https://propdock.no",
+    sitemap: `${baseUrl}/sitemap.xml`,
+    host: baseUrl,
   }
 }
