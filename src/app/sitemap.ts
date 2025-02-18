@@ -1,22 +1,54 @@
+import { HELP_CATEGORIES } from "@/lib/blog/content"
+import { allBlogPosts, allHelpPosts } from "content-collections"
 import { MetadataRoute } from "next"
+import { headers } from "next/headers"
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://propdock.no"
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const headersList = await headers()
+  const domain = headersList.get("host") ?? "propdock.no"
+  const protocol = process.env.NODE_ENV === "development" ? "http" : "https"
+  const baseUrl = `${protocol}://${domain}`
 
-  // Core pages
-  const routes = [
+  // Core static pages
+  const staticPages = [
     "",
     "/om-oss",
     "/tjenester",
     "/tjenester/verdsettelse",
     "/markedsinnsikt",
     "/kontakt",
+    "/help",
+    "/blog",
   ].map((route) => ({
     url: `${baseUrl}${route}`,
-    lastModified: new Date().toISOString(),
-    changeFrequency: "monthly" as const,
-    priority: route === "" ? 1 : 0.8,
+    lastModified: new Date(),
+    changeFrequency: "daily" as const,
+    priority: route === "" ? 1.0 : 0.8,
   }))
 
-  return routes
+  // Help category pages
+  const helpCategories = HELP_CATEGORIES.map((category) => ({
+    url: `${baseUrl}/help/category/${category.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "weekly" as const,
+    priority: 0.7,
+  }))
+
+  // Dynamic help article pages
+  const helpPages = allHelpPosts.map((post) => ({
+    url: `${baseUrl}/help/article/${post.slug}`,
+    lastModified: new Date(post.updatedAt),
+    changeFrequency: "weekly" as const,
+    priority: 0.8,
+  }))
+
+  // Dynamic blog pages
+  const blogPages = allBlogPosts.map((post) => ({
+    url: `${baseUrl}/blog/${post.slug}`,
+    lastModified: new Date(post.publishedAt),
+    changeFrequency: "weekly" as const,
+    priority: 0.8,
+  }))
+
+  return [...staticPages, ...helpCategories, ...helpPages, ...blogPages]
 }

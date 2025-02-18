@@ -37,12 +37,12 @@ export const BLOG_CATEGORIES = [
 ]
 
 export const POPULAR_ARTICLES = [
-  "become-provider",
-  "become-provider",
-  "become-provider",
-  "become-provider",
-  "become-provider",
-  "become-provider",
+  "hva-er-propdock",
+  "hva-er-yield",
+  "hva-er-netto-leieinntekter",
+  "hva-er-brutto-leieinntekter",
+  "hva-er-yield",
+  "hva-er-propdock",
 ]
 
 export const HELP_CATEGORIES: {

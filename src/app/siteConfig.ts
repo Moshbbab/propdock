@@ -13,6 +13,7 @@ export const siteConfig = {
     privacy: "/privacy",
     terms: "/terms",
     markedsinnsikt: "/markedsinnsikt",
+    help: "/help",
     kontakt: "/kontakt",
     blog: "/blog",
   },

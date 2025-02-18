@@ -82,24 +82,24 @@ const mainFeatures = [
     title: "DCF-Analyse",
     description: "Detaljerte kontantstrømanalyser med flere scenarioer",
     icon: RiLineChartLine,
-    href: "/tjenester/verdivurdering/dcf",
+    href: "/tjenester/verdsettelse",
   },
   {
     title: "Yield-Beregning",
     description: "Nøyaktige yield-beregninger basert på markedsdata",
     icon: RiPieChartLine,
-    href: "/tjenester/verdivurdering/yield",
+    href: "/tjenester/verdsettelse",
   },
   {
     title: "Sensitivitetsanalyse",
     description: "Analyser hvordan ulike faktorer påvirker verdien",
     icon: RiDatabaseLine,
-    href: "/tjenester/verdivurdering/sensitivitet",
+    href: "/tjenester/verdsettelse",
   },
   {
     title: "Sammenligning",
     description: "Sammenlign med lignende eiendommer i markedet",
     icon: RiBarChartBoxLine,
-    href: "/tjenester/verdivurdering/sammenligning",
+    href: "/tjenester/verdsettelse",
   },
 ]

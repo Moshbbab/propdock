@@ -24,6 +24,7 @@ import BlurImage from "@/lib/blog/blur-image"
 import { HELP_CATEGORIES, POPULAR_ARTICLES } from "@/lib/blog/content"
 import { cx, formatDate } from "@/lib/utils"
 
+import { DcfChart } from "@/components/propdock/DcfChart"
 import { AnimatedGridPattern } from "@/components/ui/Animated-Grid-Background"
 import "katex/dist/katex.min.css"
 import { BlockMath, InlineMath } from "react-katex"
@@ -159,15 +160,15 @@ const components = {
   ),
   li: (props: any) => (
     <li
-      className="mb-6 text-base leading-relaxed text-warm-white/80 marker:text-warm-white/60"
+      className="mb-2 text-base leading-relaxed text-warm-white/80 marker:text-warm-white/60"
       {...props}
     />
   ),
   ul: (props: any) => (
-    <ul className="my-8 list-disc space-y-6 pl-6" {...props} />
+    <ul className="my-2 list-disc space-y-6 pl-6" {...props} />
   ),
   ol: (props: any) => (
-    <ol className="my-8 list-decimal space-y-6 pl-6" {...props} />
+    <ol className="my-2 list-decimal space-y-2 pl-6" {...props} />
   ),
   Note: (props: {
     variant?: "info" | "warning" | "success"
@@ -245,7 +246,7 @@ const components = {
       <div className="mb-4 flex items-center gap-3">
         <RiListCheck2 className="h-5 w-5 text-warm-white/60" />
         <h4 className="font-display text-lg font-semibold text-warm-white">
-          Prerequisites
+          Forutsetninger
         </h4>
       </div>
       <div className="prose prose-invert max-w-none">{props.children}</div>
@@ -568,6 +569,11 @@ const components = {
     }
     size?: "default" | "large"
   }) => <AnimatedCTA {...props} />,
+  DcfChart: (props: any) => (
+    <div className="">
+      <DcfChart {...props} />
+    </div>
+  ),
 }
 
 interface MDXProps {
@@ -595,9 +601,9 @@ export function MDX({ code, images, className }: MDXProps) {
         "prose-p:text-warm-white/80 prose-p:leading-relaxed prose-p:my-4",
         "prose-a:text-warm-white/80 prose-a:underline prose-a:underline-offset-4 hover:prose-a:text-warm-white",
         "prose-code:text-warm-white prose-code:bg-warm-grey-2/10 prose-code:px-2 prose-code:py-1",
-        "prose-li:text-warm-white/80 prose-li:leading-relaxed prose-li:mb-6",
+        "prose-li:text-warm-white/80 prose-li:leading-relaxed prose-li:mb-2",
         "prose-ul:my-8 prose-ul:space-y-6",
-        "prose-ol:my-8 prose-ol:space-y-6",
+        "prose-ol:my-4 prose-ol:space-y-2",
         className,
       )}
     >

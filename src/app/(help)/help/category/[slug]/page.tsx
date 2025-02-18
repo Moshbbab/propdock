@@ -9,6 +9,7 @@ import SearchButton from "@/components/blog/search-button"
 import { HELP_CATEGORIES, POPULAR_ARTICLES } from "@/lib/blog/content"
 import { constructMetadata } from "@/lib/utils"
 import { RiArrowRightSLine } from "@remixicon/react"
+
 export async function generateStaticParams() {
   return HELP_CATEGORIES.map((category) => ({
     slug: category.slug,
@@ -20,9 +21,8 @@ export async function generateMetadata({
 }: {
   params: { slug: string }
 }): Promise<Metadata | undefined> {
-  const category = HELP_CATEGORIES.find(
-    (category) => category.slug === params.slug,
-  )
+  const { slug } = await params
+  const category = HELP_CATEGORIES.find((category) => category.slug === slug)
   if (!category) {
     return
   }
@@ -38,14 +38,15 @@ export async function generateMetadata({
   })
 }
 
-export default function HelpCategory({
+export default async function HelpCategory({
   params,
 }: {
   params: {
     slug: string
   }
 }) {
-  const data = HELP_CATEGORIES.find((category) => category.slug === params.slug)
+  const { slug } = await params
+  const data = HELP_CATEGORIES.find((category) => category.slug === slug)
   if (!data) {
     notFound()
   }
