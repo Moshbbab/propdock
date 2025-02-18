@@ -58,6 +58,7 @@
     "@types/node": "^22.10.5",
     "@types/react": "19.0.4",
     "@types/react-dom": "19.0.2",
+    "@types/react-katex": "^3.0.4",
     "eslint": "^8.57.1",
     "eslint-config-next": "15.1.4",
     "fumadocs-core": "^15.0.8",

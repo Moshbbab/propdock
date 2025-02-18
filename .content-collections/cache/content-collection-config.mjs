@@ -193,10 +193,9 @@ var HelpPost = defineCollection({
       z.enum([
         "overview",
         "getting-started",
-        "for-users",
-        "for-providers",
-        "integrations",
-        "admin"
+        "terms",
+        "analysis",
+        "valuation"
       ])
     ).default(["overview"]),
     related: z.array(z.string()).optional(),

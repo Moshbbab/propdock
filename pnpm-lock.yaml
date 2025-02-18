@@ -152,6 +152,9 @@ devDependencies:
   '@types/react-dom':
     specifier: 19.0.2
     version: 19.0.2(@types/react@19.0.4)
+  '@types/react-katex':
+    specifier: ^3.0.4
+    version: 3.0.4
   eslint:
     specifier: ^8.57.1
     version: 8.57.1
@@ -2441,6 +2444,12 @@ packages:
       '@types/react': 19.0.4
     dependencies:
       '@types/react': 19.0.4
+
+  /@types/react-katex@3.0.4:
+    resolution: {integrity: sha512-aLkykKzSKLpXI6REJ3uClao6P47HAFfR1gcHOZwDeTuALsyjgMhz+oynLV4gX0kiJVnvHrBKF/TLXqyNTpHDUg==}
+    dependencies:
+      '@types/react': 19.0.4
+    dev: true
 
   /@types/react@19.0.4:
     resolution: {integrity: sha512-3O4QisJDYr1uTUMZHA2YswiQZRq+Pd8D+GdVFYikTutYsTz+QZgWkAPnP7rx9txoI6EXKcPiluMqWPFV3tT9Wg==}

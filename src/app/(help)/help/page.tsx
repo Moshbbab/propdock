@@ -6,9 +6,9 @@ import { getPopularArticles, HELP_CATEGORIES } from "@/lib/blog/content"
 import { constructMetadata } from "@/lib/utils"
 
 export const metadata = constructMetadata({
-  title: "Hjelpesenter – Propdock",
+  title: "Kunnskapssenter – Propdock",
   description:
-    "Et sentralt knutepunkt for alle dine Propdock-relaterte spørsmål. Finn svar på vanlige spørsmål, lær hvordan du bruker plattformen, og få ekspertråd.",
+    "Et sentralt knutepunkt for alle dine næringseiendoms-relaterte spørsmål. Finn svar på vanlige spørsmål, lær hvordan du bruker plattformen, og få ekspertråd.",
 })
 
 export default function HelpCenter() {
@@ -17,7 +17,7 @@ export default function HelpCenter() {
     <>
       <MaxWidthWrapper className="max-w-screen-lg pt-32 md:pt-40">
         <div className="flex flex-col space-y-4 py-10">
-          <h1 className="font-display text-xl font-bold text-warm-white sm:text-3xl">
+          <h1 className="font-display pb-4 text-xl font-bold text-warm-white sm:text-3xl">
             👋 Hvordan kan vi hjelpe deg i dag?
           </h1>
           <SearchButton />

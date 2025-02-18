@@ -1,10 +1,17 @@
+"use client"
+
 import { MDXContent } from "@content-collections/mdx/react"
 import {
   RiAlertLine,
+  RiArrowRightLine,
+  RiBarChartBoxLine,
   RiCheckboxCircleLine,
   RiFunctions,
   RiInformationLine,
+  RiLightbulbLine,
+  RiLineChartLine,
   RiListCheck2,
+  RiScalesLine,
 } from "@remixicon/react"
 import {
   allBlogPosts,
@@ -17,6 +24,7 @@ import BlurImage from "@/lib/blog/blur-image"
 import { HELP_CATEGORIES, POPULAR_ARTICLES } from "@/lib/blog/content"
 import { cx, formatDate } from "@/lib/utils"
 
+import { AnimatedGridPattern } from "@/components/ui/Animated-Grid-Background"
 import "katex/dist/katex.min.css"
 import { BlockMath, InlineMath } from "react-katex"
 import CategoryCard from "./category-card"
@@ -43,6 +51,69 @@ const CustomLink = (props: any) => {
   return <a target="_blank" rel="noopener noreferrer" {...props} />
 }
 
+function AnimatedCTA(props: {
+  badge?: string
+  title: string
+  description: string
+  primaryAction?: {
+    label: string
+    href: string
+  }
+  secondaryAction?: {
+    label: string
+    href: string
+  }
+  size?: "default" | "large"
+}) {
+  return (
+    <div
+      className={cx(
+        "relative overflow-hidden rounded-xl bg-warm-grey-2/10 p-8 shadow-lg shadow-warm-grey-2/5 ring-1 ring-warm-grey-2/20 backdrop-blur-sm transition-shadow hover:shadow-lg hover:shadow-warm-grey-2/5",
+        props.size === "large" && "min-h-[400px]",
+      )}
+    >
+      <AnimatedGridPattern
+        className="absolute inset-0 opacity-30"
+        width={32}
+        height={32}
+        strokeDasharray="4 2"
+      />
+      <div className="relative flex h-full flex-col items-center justify-center gap-6 text-center">
+        {props.badge && (
+          <span className="inline-flex items-center rounded-full border border-warm-grey-2/20 bg-warm-grey-2/10 px-3 py-1 text-xs font-medium text-warm-white/80">
+            {props.badge}
+          </span>
+        )}
+        <h3 className="text-2xl font-semibold tracking-tight text-warm-white">
+          {props.title}
+        </h3>
+        <p className="text-warm-white/80">{props.description}</p>
+        {(props.primaryAction || props.secondaryAction) && (
+          <div className="flex gap-4">
+            {props.primaryAction && (
+              <Link
+                href={props.primaryAction.href}
+                className="inline-flex items-center justify-center rounded-full bg-warm-grey-2/20 px-6 py-2 font-medium text-warm-white transition-colors hover:bg-warm-grey-2/30"
+              >
+                {props.primaryAction.label}
+              </Link>
+            )}
+            {props.secondaryAction && (
+              <Link
+                href={props.secondaryAction.href}
+                className="inline-flex items-center justify-center gap-2 rounded-full px-6 py-2 font-medium text-warm-white/80 ring-1 ring-warm-grey-2/20 transition-colors hover:bg-warm-grey-2/10 hover:text-warm-white"
+              >
+                {props.secondaryAction.label}
+                <RiArrowRightLine className="h-4 w-4" />
+              </Link>
+            )}
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
 const components = {
   h2: (props: any) => (
     <h2
@@ -58,7 +129,7 @@ const components = {
   ),
   a: (props: any) => (
     <CustomLink
-      className="font-medium text-warm-white/80 underline-offset-4 hover:text-warm-white"
+      className="font-medium text-warm-white/80 underline underline-offset-4 hover:text-warm-white"
       {...props}
     />
   ),
@@ -120,7 +191,7 @@ const components = {
           },
         )}
       >
-        <div className="flex items-start gap-3">
+        <div className="mt-1 flex items-start gap-3">
           <Icon
             className={cx("mt-0.5 h-5 w-5", {
               "text-blue-500/80": props.variant === "info",
@@ -169,13 +240,15 @@ const components = {
       </div>
     </div>
   ),
-  Prerequisites: (props: any) => (
-    <div className="my-8 rounded-md border border-warm-grey-2/20 bg-warm-grey-2/10 px-6 py-4 text-[0.95rem] leading-relaxed shadow-md">
-      <div className="mb-4 flex items-center space-x-2 text-warm-white/80">
-        <RiListCheck2 size={20} />
-        <p className="text-sm font-medium uppercase">Prerequisites</p>
+  Prerequisites: (props: { children: React.ReactNode }) => (
+    <div className="my-8 rounded-xl border border-warm-grey-2/20 bg-warm-grey-2/10 p-6 backdrop-blur-sm">
+      <div className="mb-4 flex items-center gap-3">
+        <RiListCheck2 className="h-5 w-5 text-warm-white/60" />
+        <h4 className="font-display text-lg font-semibold text-warm-white">
+          Prerequisites
+        </h4>
       </div>
-      {props.children}
+      <div className="prose prose-invert max-w-none">{props.children}</div>
     </div>
   ),
   CopyBox,
@@ -295,6 +368,206 @@ const components = {
       <InlineMath math={props.formula} />
     </span>
   ),
+  FormulaDisplay: (props: {
+    formula: string
+    description?: string
+    mode?: "inline" | "block"
+    className?: string
+  }) => (
+    <div
+      className={cx(
+        "my-6 flex flex-col space-y-2 rounded-lg border border-warm-grey-2/20 bg-warm-grey-2/10 px-6 py-4 backdrop-blur-sm",
+        props.className,
+      )}
+    >
+      <div className="flex items-center gap-3">
+        <RiFunctions className="h-5 w-5 text-warm-white/60" />
+        <div className="text-lg font-medium text-warm-white">Formel</div>
+      </div>
+      <div className="w-full overflow-x-auto">
+        <div
+          className={cx(
+            "min-w-fit text-center",
+            props.mode === "inline" ? "py-2" : "py-4",
+          )}
+        >
+          {props.mode === "inline" ? (
+            <InlineMath math={props.formula} />
+          ) : (
+            <BlockMath math={props.formula} />
+          )}
+        </div>
+      </div>
+      {props.description && (
+        <p className="text-sm text-warm-white/70">{props.description}</p>
+      )}
+    </div>
+  ),
+  Stepper: (props: {
+    items: {
+      title: string
+      content: React.ReactNode
+      image?: {
+        src: string
+        alt: string
+        width?: number
+        height?: number
+      }
+      formula?: {
+        math: string
+        description?: string
+        mode?: "inline" | "block"
+      }
+    }[]
+  }) => {
+    const MDXImage = (props: any) => {
+      return <ZoomImage {...props} />
+    }
+
+    return (
+      <div className="my-8 flex flex-col space-y-12">
+        {props.items.map((item, idx) => (
+          <div key={idx} className="flex gap-6">
+            <div className="flex-none">
+              <div className="flex h-8 w-8 items-center justify-center rounded-full border border-warm-grey-2/20 bg-warm-grey-2/10 text-lg font-semibold text-warm-white">
+                {idx + 1}
+              </div>
+            </div>
+            <div className="flex-1 space-y-4">
+              <h3 className="text-xl font-semibold text-warm-white">
+                {item.title}
+              </h3>
+              <div className="text-base text-warm-white/80">{item.content}</div>
+              {item.image && (
+                <div className="mt-4 overflow-hidden rounded-lg">
+                  <MDXImage
+                    src={item.image.src}
+                    alt={item.image.alt}
+                    width={item.image.width || 800}
+                    height={item.image.height || 400}
+                  />
+                </div>
+              )}
+              {item.formula && (
+                <div className="mt-4">
+                  <components.FormulaDisplay
+                    formula={item.formula.math}
+                    description={item.formula.description}
+                    mode={item.formula.mode}
+                  />
+                </div>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    )
+  },
+  Example: (props: {
+    title?: string
+    steps: {
+      label: string
+      value: string | number
+      calculation?: string
+      isResult?: boolean
+    }[]
+  }) => (
+    <div className="my-8 rounded-xl border border-warm-grey-2/20 bg-warm-grey-2/10 p-6 backdrop-blur-sm">
+      {props.title && (
+        <h4 className="font-display mb-4 text-lg font-semibold text-warm-white">
+          {props.title}
+        </h4>
+      )}
+      <div className="flex flex-col space-y-3">
+        {props.steps.map((step, idx) => (
+          <div
+            key={idx}
+            className={cx("flex flex-col space-y-1", {
+              "mt-4 border-t border-warm-grey-2/20 pt-4": step.isResult,
+            })}
+          >
+            <div className="flex items-baseline justify-between">
+              <span className="text-warm-white/80">{step.label}</span>
+              <span
+                className={cx(
+                  "font-mono text-lg",
+                  step.isResult
+                    ? "font-semibold text-warm-white"
+                    : "text-warm-white/80",
+                )}
+              >
+                {typeof step.value === "number"
+                  ? new Intl.NumberFormat("nb-NO").format(step.value)
+                  : step.value}
+              </span>
+            </div>
+            {step.calculation && (
+              <div className="text-sm text-warm-white/60">
+                {step.calculation}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  ),
+  Summary: (props: {
+    title?: string
+    points: {
+      title: string
+      description?: string
+      iconName?: string
+    }[]
+  }) => {
+    const iconMap: { [key: string]: React.ReactNode } = {
+      barChart: <RiBarChartBoxLine className="h-5 w-5 text-warm-white/60" />,
+      scales: <RiScalesLine className="h-5 w-5 text-warm-white/60" />,
+      lineChart: <RiLineChartLine className="h-5 w-5 text-warm-white/60" />,
+      lightbulb: <RiLightbulbLine className="h-5 w-5 text-warm-white/60" />,
+    }
+
+    return (
+      <div className="my-8 rounded-xl border border-warm-grey-2/20 bg-warm-grey-2/10 p-6 backdrop-blur-sm">
+        {props.title && (
+          <h4 className="font-display mb-6 text-xl font-semibold text-warm-white">
+            {props.title}
+          </h4>
+        )}
+        <div className="grid gap-6 sm:grid-cols-2">
+          {props.points.map((point, idx) => (
+            <div
+              key={idx}
+              className="flex flex-col space-y-2 rounded-lg border border-warm-grey-2/20 bg-warm-grey-2/5 p-4 backdrop-blur-sm"
+            >
+              <div className="flex items-center gap-3">
+                {point.iconName && iconMap[point.iconName]}
+                <h5 className="font-medium text-warm-white">{point.title}</h5>
+              </div>
+              {point.description && (
+                <p className="text-sm leading-relaxed text-warm-white/70">
+                  {point.description}
+                </p>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  },
+  CTA: (props: {
+    badge?: string
+    title: string
+    description: string
+    primaryAction?: {
+      label: string
+      href: string
+    }
+    secondaryAction?: {
+      label: string
+      href: string
+    }
+    size?: "default" | "large"
+  }) => <AnimatedCTA {...props} />,
 }
 
 interface MDXProps {
@@ -320,7 +593,7 @@ export function MDX({ code, images, className }: MDXProps) {
         "prose max-w-none transition-all",
         "prose-headings:relative prose-headings:scroll-mt-20 prose-headings:font-display prose-headings:font-bold prose-headings:text-warm-white",
         "prose-p:text-warm-white/80 prose-p:leading-relaxed prose-p:my-4",
-        "prose-a:text-warm-white/80 prose-a:underline-offset-4 hover:prose-a:text-warm-white",
+        "prose-a:text-warm-white/80 prose-a:underline prose-a:underline-offset-4 hover:prose-a:text-warm-white",
         "prose-code:text-warm-white prose-code:bg-warm-grey-2/10 prose-code:px-2 prose-code:py-1",
         "prose-li:text-warm-white/80 prose-li:leading-relaxed prose-li:mb-6",
         "prose-ul:my-8 prose-ul:space-y-6",
