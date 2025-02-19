@@ -88,8 +88,8 @@ export function constructMetadata({
       shortcut: icons,
       apple: icons,
     },
-    metadataBase: new URL("https://propdock.no"),
-    authors: [{ name: "Propdock", url: "https://propdock.no" }],
+    metadataBase: new URL("https://www.propdock.no"),
+    authors: [{ name: "Propdock", url: "https://www.propdock.no" }],
     keywords: [
       "verdsettelse næringseiendom",
       "verdivurdering eiendom",
@@ -109,7 +109,7 @@ export function constructMetadata({
     ],
     category: "Eiendomsanalyse",
     alternates: {
-      canonical: "https://propdock.no",
+      canonical: "https://www.propdock.no",
     },
     ...(noIndex && {
       robots: {

@@ -17,13 +17,13 @@ const navigation = {
   ressurser: [
     { name: "Dokumentasjon", href: "#", external: false },
     { name: "API", href: "#", external: false },
-    { name: "Markedsrapporter", href: "#", external: false },
-    { name: "Kunnskapssenter", href: "#", external: false },
+    { name: "Markedsrapporter", href: "/markedsinnsikt", external: false },
+    { name: "Kunnskapssenter", href: "/help", external: false },
   ],
   selskap: [
-    { name: "Om oss", href: "#", external: false },
-    { name: "Kontakt", href: "#", external: false },
-    { name: "Blogg", href: "#", external: false },
+    { name: "Om oss", href: "/om-oss", external: false },
+    { name: "Kontakt", href: "/kontakt", external: false },
+    { name: "Blogg", href: "/blog", external: false },
     { name: "Karriere", href: "#", external: false },
   ],
   juridisk: [

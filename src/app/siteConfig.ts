@@ -1,6 +1,6 @@
 export const siteConfig = {
   name: "Propdock - Intelligent verdsettelse av næringseiendom",
-  url: "https://propdock.no",
+  url: "https://www.propdock.no",
   description:
     "Avansert plattform for verdivurdering og verdsettelse av næringseiendom. Få innsikt med DCF-analyser, yield-beregninger og markedsdata for bedre investeringsbeslutninger.",
   baseLinks: {
