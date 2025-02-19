@@ -1,51 +1,26 @@
 import { HELP_CATEGORIES } from "@/lib/blog/content"
-import { cleanUrl, debugUrl } from "@/lib/utils"
 import { allBlogPosts, allHelpPosts } from "content-collections"
 import { MetadataRoute } from "next"
+import { headers } from "next/headers"
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = "https://www.propdock.no"
-
-  // Helper function to ensure consistent URL format and debug
-  const formatUrl = (path: string, type: string) => {
-    const cleanPath = path
-      ? (path.startsWith("/") ? path : `/${path}`).replace(/\/$/, "")
-      : ""
-    const fullUrl = cleanPath ? `${baseUrl}${cleanPath}` : baseUrl
-
-    // Debug URL formatting
-    debugUrl(fullUrl, "sitemap", {
-      originalPath: path,
-      cleanPath,
-      type,
-      timestamp: new Date().toISOString(),
-    })
-
-    // Verify URL consistency
-    const cleanedUrl = cleanUrl(fullUrl)
-    if (cleanedUrl !== fullUrl) {
-      console.warn(`[URL Mismatch] in sitemap for ${type}:`, {
-        original: fullUrl,
-        cleaned: cleanedUrl,
-        path,
-      })
-    }
-
-    return fullUrl
-  }
+  const headersList = await headers()
+  const domain = headersList.get("host") ?? "www.propdock.no"
+  const protocol = process.env.NODE_ENV === "development" ? "http" : "https"
+  const baseUrl = `${protocol}://${domain}`
 
   // Core static pages
   const staticPages = [
     "",
-    "om-oss",
-    "tjenester",
-    "tjenester/verdsettelse",
-    "markedsinnsikt",
-    "kontakt",
-    "help",
-    "blog",
+    "/om-oss",
+    "/tjenester",
+    "/tjenester/verdsettelse",
+    "/markedsinnsikt",
+    "/kontakt",
+    "/help",
+    "/blog",
   ].map((route) => ({
-    url: formatUrl(route, "static"),
+    url: `${baseUrl}${route}`,
     lastModified: new Date(),
     changeFrequency: "daily" as const,
     priority: route === "" ? 1.0 : 0.8,
@@ -53,7 +28,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // Help category pages
   const helpCategories = HELP_CATEGORIES.map((category) => ({
-    url: formatUrl(`help/category/${category.slug}`, "help-category"),
+    url: `${baseUrl}/help/category/${category.slug}`,
     lastModified: new Date(),
     changeFrequency: "weekly" as const,
     priority: 0.7,
@@ -61,7 +36,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // Dynamic help article pages
   const helpPages = allHelpPosts.map((post) => ({
-    url: formatUrl(`help/article/${post.slug}`, "help-article"),
+    url: `${baseUrl}/help/article/${post.slug}`,
     lastModified: new Date(post.updatedAt),
     changeFrequency: "weekly" as const,
     priority: 0.8,
@@ -69,30 +44,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // Dynamic blog pages
   const blogPages = allBlogPosts.map((post) => ({
-    url: formatUrl(`blog/${post.slug}`, "blog"),
+    url: `${baseUrl}/blog/${post.slug}`,
     lastModified: new Date(post.publishedAt),
     changeFrequency: "weekly" as const,
     priority: 0.8,
   }))
 
-  const allUrls = [
-    ...staticPages,
-    ...helpCategories,
-    ...helpPages,
-    ...blogPages,
-  ]
-
-  // Log summary of all URLs
-  if (process.env.NODE_ENV === "development") {
-    console.log("\n[Sitemap Summary]", {
-      total: allUrls.length,
-      static: staticPages.length,
-      helpCategories: helpCategories.length,
-      helpArticles: helpPages.length,
-      blogPosts: blogPages.length,
-      timestamp: new Date().toISOString(),
-    })
-  }
-
-  return allUrls
+  return [...staticPages, ...helpCategories, ...helpPages, ...blogPages]
 }
