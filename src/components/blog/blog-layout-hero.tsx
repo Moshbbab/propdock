@@ -66,13 +66,13 @@ export default function BlogLayoutHero() {
               ))}
               <CategoryLink
                 title="Suksesshistorier"
-                href="/customers"
+                href="#"
                 mobile
                 setOpenPopover={setOpenPopover}
               />
               <CategoryLink
                 title="Oppdateringer"
-                href="/changelog"
+                href="#"
                 mobile
                 setOpenPopover={setOpenPopover}
               />

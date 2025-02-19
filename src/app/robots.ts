@@ -3,7 +3,7 @@ import { headers } from "next/headers"
 
 export default async function robots(): Promise<MetadataRoute.Robots> {
   const headersList = await headers()
-  const domain = headersList.get("host") ?? "propdock.no"
+  const domain = headersList.get("host") ?? "www.propdock.no"
   const protocol = process.env.NODE_ENV === "development" ? "http" : "https"
   const baseUrl = `${protocol}://${domain}`
 
@@ -11,27 +11,8 @@ export default async function robots(): Promise<MetadataRoute.Robots> {
     rules: [
       {
         userAgent: "*",
-        allow: [
-          "/",
-          "/help/*",
-          "/blog/*",
-          "/om-oss",
-          "/tjenester/*",
-          "/markedsinnsikt/*",
-          "/kontakt",
-          "/early-access",
-        ],
-        disallow: [
-          "/api/",
-          "/_next/",
-          "/static/",
-          "/propdock/*",
-          "/admin/*",
-          "/dashboard/*",
-          "/settings/*",
-          "/auth/*",
-          "/private/*",
-        ],
+        allow: "/",
+        disallow: ["/propdock/", "/api/", "/admin/", "/_next/", "/static/"],
       },
     ],
     sitemap: `${baseUrl}/sitemap.xml`,

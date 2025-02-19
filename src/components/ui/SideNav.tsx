@@ -19,22 +19,22 @@ const navigation = [
   },
   {
     name: "Rapporter",
-    href: "/markedsinnsikt/rapporter",
+    href: "/markedsinnsikt/",
     icon: RiFileChartLine,
   },
   {
     name: "Nøkkeltall",
-    href: "/markedsinnsikt/nokkeltall",
+    href: "/markedsinnsikt/",
     icon: RiBarChartBoxLine,
   },
   {
     name: "Data",
-    href: "/markedsinnsikt/data",
+    href: "/markedsinnsikt/",
     icon: RiDatabase2Line,
   },
   {
     name: "Markedskart",
-    href: "/markedsinnsikt/kart",
+    href: "/markedsinnsikt/",
     icon: RiMapLine,
   },
 ]

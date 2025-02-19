@@ -5,7 +5,7 @@ import { headers } from "next/headers"
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const headersList = await headers()
-  const domain = headersList.get("host") ?? "propdock.no"
+  const domain = headersList.get("host") ?? "www.propdock.no"
   const protocol = process.env.NODE_ENV === "development" ? "http" : "https"
   const baseUrl = `${protocol}://${domain}`
 
