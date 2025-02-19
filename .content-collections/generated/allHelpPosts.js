@@ -7,7 +7,7 @@ export default [
     "summary": "En dyptgående guide til diskontert kontantstrøm-analyse (DCF) i næringseiendom - fra grunnleggende prinsipper til avanserte beregninger.",
     "author": "codehagen",
     "categories": [
-      "terms"
+      "valuation"
     ],
     "related": [
       "kontantstromsanalyse",

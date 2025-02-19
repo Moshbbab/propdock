@@ -15,7 +15,7 @@ const navigation = {
     { name: "Rapporter", href: "#", external: false },
   ],
   ressurser: [
-    { name: "Dokumentasjon", href: "#", external: false },
+    { name: "Integrasjoner", href: "/integrasjoner", external: false },
     { name: "API", href: "#", external: false },
     { name: "Markedsrapporter", href: "/markedsinnsikt", external: false },
     { name: "Kunnskapssenter", href: "/help", external: false },

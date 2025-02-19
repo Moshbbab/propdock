@@ -3,6 +3,7 @@ import {
   allBlogPosts,
   allCustomersPosts,
   allHelpPosts,
+  allIntegrationsPosts,
 } from "content-collections"
 import { MetadataRoute } from "next"
 import { headers } from "next/headers"
@@ -24,6 +25,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/help",
     "/blog",
     "/kunder",
+    "/integrations",
   ].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
@@ -63,11 +65,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.9,
   }))
 
+  // Dynamic integration pages
+  const integrationPages = allIntegrationsPosts.map((post) => ({
+    url: `${baseUrl}/integrasjoner/${post.slug}`,
+    lastModified: new Date(post.publishedAt),
+    changeFrequency: "weekly" as const,
+    priority: 0.7,
+  }))
+
   return [
     ...staticPages,
     ...helpCategories,
     ...helpPages,
     ...blogPages,
     ...customerPages,
+    ...integrationPages,
   ]
 }

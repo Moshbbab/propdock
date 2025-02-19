@@ -15,32 +15,32 @@ export const Integration = ({
 }) => {
   return (
     <Link
-      href={site || `/integrations/${slug}`}
+      href={site || `/integrasjoner/${slug}`}
       {...(site ? { target: "_blank", rel: "noreferrer noopener" } : {})}
-      className={`group flex flex-col items-center justify-between rounded-2xl border border-gray-300 bg-white/10 backdrop-blur-sm transition-all hover:bg-white/20 ${
-        description ? "h-full space-y-4 p-8 sm:p-10" : "h-1/2 p-4 sm:p-6"
-      }`}
+      className="group flex h-full flex-col items-center justify-between space-y-4 rounded-xl border border-warm-grey/10 bg-warm-white/5 p-8 backdrop-blur-sm transition-all hover:border-warm-grey/20 hover:bg-warm-white/10 sm:p-10 dark:border-warm-white/10 dark:bg-warm-grey-3/5 dark:hover:border-warm-white/20 dark:hover:bg-warm-grey-3/10"
     >
-      <BlurImage
-        src={`/_static/integrations/${slug}.svg`}
-        alt={slug.toUpperCase()}
-        width={520}
-        height={182}
-        className={`grayscale transition-all group-hover:grayscale-0 ${
-          description ? "max-h-16" : "max-h-12"
-        }`}
-      />
-      {description && (
-        <>
-          <hr className="w-full border-t border-gray-200" />
-          <p className="text-center text-sm text-gray-600">{description}</p>
-        </>
-      )}
+      <div className="flex flex-col items-center space-y-4">
+        <BlurImage
+          src={`/_static/integrasjoner/${slug}.svg`}
+          alt={slug.toUpperCase()}
+          width={520}
+          height={182}
+          className="max-h-16 grayscale transition-all group-hover:grayscale-0"
+        />
+        {description && (
+          <>
+            <div className="h-px w-full bg-warm-grey/10 dark:bg-warm-white/10" />
+            <p className="text-center text-sm text-warm-grey-2 dark:text-warm-grey-1">
+              {description}
+            </p>
+          </>
+        )}
+      </div>
       <div className="flex space-x-1">
-        <p className="text-sm font-medium text-gray-500 group-hover:text-green-500">
-          {site ? "Gå til nettside" : "Les om integrasjon"}
+        <p className="text-sm font-medium text-warm-grey-2 transition-colors group-hover:text-warm-grey dark:text-warm-grey-1 dark:group-hover:text-warm-white">
+          {site ? "Besøk nettside" : "Les mer"}
         </p>
-        <ExpandingArrow className="text-gray-500 group-hover:text-green-500" />
+        <ExpandingArrow className="text-warm-grey-2 transition-colors group-hover:text-warm-grey dark:text-warm-grey-1 dark:group-hover:text-warm-white" />
       </div>
     </Link>
   )

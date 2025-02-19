@@ -33,6 +33,7 @@ export default function Logos({
       >
         {logos.slice(0, 6).map((logo) => (
           <BlurImage
+            key={logo}
             src={`/_static/clients/${logo}.svg`}
             alt={logo.toUpperCase()}
             width={520}
@@ -47,6 +48,7 @@ export default function Logos({
       >
         {logos.slice(6, 12).map((logo) => (
           <BlurImage
+            key={logo}
             src={`/_static/clients/${logo}.svg`}
             alt={logo.toUpperCase()}
             width={520}
