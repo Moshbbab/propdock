@@ -43,6 +43,30 @@ export function formatDate(date: string) {
   }
 }
 
+// URL debugging utilities
+export function debugUrl(url: string, source: string, context?: any) {
+  if (process.env.NODE_ENV === "development") {
+    console.log(`[URL Debug] ${source}:`, {
+      original: url,
+      cleaned: cleanUrl(url),
+      context,
+      timestamp: new Date().toISOString(),
+    })
+  }
+}
+
+export function cleanUrl(url: string): string {
+  const baseUrl = "https://www.propdock.no"
+  // Remove baseUrl if it exists
+  const path = url.replace(baseUrl, "")
+  // Clean the path
+  const cleanPath = path
+    ? (path.startsWith("/") ? path : `/${path}`).replace(/\/$/, "")
+    : ""
+  // Reconstruct full URL
+  return cleanPath ? `${baseUrl}${cleanPath}` : baseUrl
+}
+
 export function constructMetadata({
   title = "Propdock - Intelligent verdsettelse av næringseiendom",
   description = "Avansert plattform for verdivurdering og verdsettelse av næringseiendom. Få innsikt med DCF-analyser, yield-beregninger og markedsdata for bedre investeringsbeslutninger.",
@@ -59,7 +83,17 @@ export function constructMetadata({
   url?: string
 } = {}): Metadata {
   const baseUrl = "https://www.propdock.no"
-  const canonicalUrl = url ? `${baseUrl}${url}` : baseUrl
+  const cleanPath = url
+    ? (url.startsWith("/") ? url : `/${url}`).replace(/\/$/, "")
+    : ""
+  const canonicalUrl = cleanPath ? `${baseUrl}${cleanPath}` : baseUrl
+
+  // Debug canonical URL generation
+  debugUrl(canonicalUrl, "constructMetadata", {
+    originalUrl: url,
+    cleanPath,
+    type: "canonical",
+  })
 
   return {
     title,
