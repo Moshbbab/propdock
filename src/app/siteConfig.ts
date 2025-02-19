@@ -6,10 +6,8 @@ export const siteConfig = {
   baseLinks: {
     home: "/",
     about: "/om-oss",
-    changelog: "/changelog",
     pricing: "/pricing",
     tjenester: "/tjenester",
-    imprint: "/imprint",
     privacy: "/privacy",
     terms: "/terms",
     markedsinnsikt: "/markedsinnsikt",

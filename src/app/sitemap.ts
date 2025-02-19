@@ -1,5 +1,9 @@
 import { HELP_CATEGORIES } from "@/lib/blog/content"
-import { allBlogPosts, allHelpPosts } from "content-collections"
+import {
+  allBlogPosts,
+  allCustomersPosts,
+  allHelpPosts,
+} from "content-collections"
 import { MetadataRoute } from "next"
 import { headers } from "next/headers"
 
@@ -19,6 +23,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/kontakt",
     "/help",
     "/blog",
+    "/kunder",
   ].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
@@ -50,5 +55,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }))
 
-  return [...staticPages, ...helpCategories, ...helpPages, ...blogPages]
+  // Dynamic customer story pages
+  const customerPages = allCustomersPosts.map((post) => ({
+    url: `${baseUrl}/kunder/${post.slug}`,
+    lastModified: new Date(post.publishedAt),
+    changeFrequency: "weekly" as const,
+    priority: 0.9,
+  }))
+
+  return [
+    ...staticPages,
+    ...helpCategories,
+    ...helpPages,
+    ...blogPages,
+    ...customerPages,
+  ]
 }

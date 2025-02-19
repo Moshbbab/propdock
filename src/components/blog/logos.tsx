@@ -28,7 +28,7 @@ export default function Logos({
         {copy}
       </p>
       <Link
-        href="/customers"
+        href="/kunder"
         className="mx-auto mt-8 grid w-full max-w-screen-lg grid-cols-2 items-center px-5 md:grid-cols-6 md:px-0"
       >
         {logos.slice(0, 6).map((logo) => (
@@ -42,7 +42,7 @@ export default function Logos({
         ))}
       </Link>
       <Link
-        href="/customers"
+        href="#"
         className="mx-auto grid w-full max-w-screen-lg grid-cols-2 items-center px-5 md:grid-cols-6 md:px-0"
       >
         {logos.slice(6, 12).map((logo) => (

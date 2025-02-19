@@ -39,7 +39,7 @@ export default function BlogLayoutHero() {
                 active={category.slug === slug}
               />
             ))}
-            <CategoryLink title="Kunder" href="/customers" />
+            <CategoryLink title="Kunder" href="/kunder" />
           </nav>
         </div>
       </MaxWidthWrapper>

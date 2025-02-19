@@ -6,9 +6,9 @@ export default [
     "categories": [
       "company"
     ],
-    "publishedAt": "2024-03-19",
+    "publishedAt": "2025-02-18",
     "featured": false,
-    "image": "https://imagedelivery.net/r-6-yk-gGPtjfbIST9-8uA/d0647475-6680-4d13-fb05-a25ba82a6200/public",
+    "image": "https://imagedelivery.net/r-6-yk-gGPtjfbIST9-8uA/4ca9b6ff-03e7-4dcc-8167-d7203befc700/public",
     "author": "codehagen",
     "summary": "Vi er stolte av å presentere Propdock, en innovativ plattform for analyse og verdivurdering av næringseiendom som kombinerer avansert teknologi med dyp fagkunnskap.",
     "related": [

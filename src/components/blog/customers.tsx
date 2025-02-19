@@ -7,9 +7,9 @@ import ExpandingArrow from "./icons/expanding-arrow"
 export const Customer = ({ slug, site }: { slug: string; site?: string }) => {
   return (
     <Link
-      href={site || `/customers/${slug}`}
+      href={site || `/kunder/${slug}`}
       {...(site ? { target: "_blank", rel: "noreferrer noopener" } : {})}
-      className="group flex flex-col items-center justify-center space-y-2 rounded-2xl border border-gray-300 bg-white/10 p-8 backdrop-blur-sm transition-all hover:bg-white/20 sm:p-10"
+      className="group flex flex-col items-center justify-center space-y-2 rounded-xl border border-warm-grey/10 bg-warm-white/5 p-8 backdrop-blur-sm transition-all hover:border-warm-grey/20 hover:bg-warm-white/10 sm:p-10 dark:border-warm-white/10 dark:bg-warm-grey-3/5 dark:hover:border-warm-white/20 dark:hover:bg-warm-grey-3/10"
     >
       <BlurImage
         src={`/_static/clients/${slug}.svg`}
@@ -19,10 +19,10 @@ export const Customer = ({ slug, site }: { slug: string; site?: string }) => {
         className="max-h-16 grayscale transition-all group-hover:grayscale-0"
       />
       <div className="flex space-x-1">
-        <p className="text-sm font-medium text-gray-500 group-hover:text-blue-600">
-          {site ? "Visit Website" : "Learn More"}
+        <p className="text-sm font-medium text-warm-grey-2 transition-colors group-hover:text-warm-grey dark:text-warm-grey-1 dark:group-hover:text-warm-white">
+          {site ? "Besøk nettside" : "Les mer"}
         </p>
-        <ExpandingArrow className="text-gray-500 group-hover:text-blue-600" />
+        <ExpandingArrow className="text-warm-grey-2 transition-colors group-hover:text-warm-grey dark:text-warm-grey-1 dark:group-hover:text-warm-white" />
       </div>
     </Link>
   )

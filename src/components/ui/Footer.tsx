@@ -24,7 +24,7 @@ const navigation = {
     { name: "Om oss", href: "/om-oss", external: false },
     { name: "Kontakt", href: "/kontakt", external: false },
     { name: "Blogg", href: "/blog", external: false },
-    { name: "Karriere", href: "#", external: false },
+    { name: "Kunder", href: "/kunder", external: false },
   ],
   juridisk: [
     { name: "Personvern", href: "#", external: false },
