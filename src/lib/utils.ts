@@ -49,13 +49,18 @@ export function constructMetadata({
   image = "/opengraph-image.png",
   icons = "/favicon.ico",
   noIndex = false,
+  url,
 }: {
   title?: string
   description?: string
   image?: string
   icons?: string
   noIndex?: boolean
+  url?: string
 } = {}): Metadata {
+  const baseUrl = "https://www.propdock.no"
+  const canonicalUrl = url ? `${baseUrl}${url}` : baseUrl
+
   return {
     title,
     description,
@@ -73,7 +78,7 @@ export function constructMetadata({
       locale: "nb_NO",
       type: "website",
       siteName: "Propdock",
-      url: "https://propdock.no",
+      url: canonicalUrl,
     },
     twitter: {
       card: "summary_large_image",
@@ -88,8 +93,8 @@ export function constructMetadata({
       shortcut: icons,
       apple: icons,
     },
-    metadataBase: new URL("https://www.propdock.no"),
-    authors: [{ name: "Propdock", url: "https://www.propdock.no" }],
+    metadataBase: new URL(baseUrl),
+    authors: [{ name: "Propdock", url: baseUrl }],
     keywords: [
       "verdsettelse næringseiendom",
       "verdivurdering eiendom",
@@ -109,7 +114,7 @@ export function constructMetadata({
     ],
     category: "Eiendomsanalyse",
     alternates: {
-      canonical: "https://www.propdock.no",
+      canonical: canonicalUrl,
     },
     ...(noIndex && {
       robots: {
