@@ -108,9 +108,6 @@ export function constructMetadata({
       "investeringsanalyse",
     ],
     category: "Eiendomsanalyse",
-    alternates: {
-      canonical: "https://www.propdock.no",
-    },
     ...(noIndex && {
       robots: {
         index: false,
