@@ -12,7 +12,7 @@ import Link from "next/link"
 export const metadata = constructMetadata({
   title: "Verdsettelse og verdivurdering av næringseiendom | Propdock",
   description:
-    "Avanserte verktøy for verdsettelse av næringseiendom. Få innsikt med DCF-analyser, yield-beregninger og sensitivitetsanalyser.",
+    "Avanserte verktøy for verdsettelse av næringseiendom. Fra DCF-analyser og yield-beregninger til sensitivitetsanalyser - få innsikt i den reelle verdien av din eiendom.",
 })
 
 export default function TjenesterPage() {

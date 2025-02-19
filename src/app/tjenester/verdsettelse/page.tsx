@@ -9,7 +9,7 @@ import Balancer from "react-wrap-balancer"
 export const metadata = constructMetadata({
   title: "Propdock Verdsettelse | Avansert verdivurdering av næringseiendom",
   description:
-    "Avansert plattform for verdivurdering av næringseiendom med DCF-analyser, yield-beregninger og sensitivitetsanalyser for presise vurderinger.",
+    "Propdock er en avansert analyseplattform for verdivurdering av næringseiendom. Plattformen inkluderer DCF, yield-beregninger og sensitivitetsanalyser for presise verdivurderinger.",
 })
 
 export default function VerdsettelsePage() {
