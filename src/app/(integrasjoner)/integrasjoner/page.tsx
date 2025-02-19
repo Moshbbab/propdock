@@ -6,7 +6,7 @@ import { constructMetadata } from "@/lib/utils"
 export const metadata = constructMetadata({
   title: "Integrasjoner - Propdock",
   description:
-    "Utforsk våre integrasjoner og se hvordan de kan forbedre din eiendomsforvaltning.",
+    "Utforsk våre kraftige integrasjoner med Kartverket, Brønnøysund og andre sentrale datakilder. Automatiser prosesser og få sanntidsdata for bedre analyser.",
 })
 
 export default function Integrations() {

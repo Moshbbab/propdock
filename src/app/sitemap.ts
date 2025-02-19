@@ -1,4 +1,4 @@
-import { HELP_CATEGORIES } from "@/lib/blog/content"
+import { BLOG_CATEGORIES, HELP_CATEGORIES } from "@/lib/blog/content"
 import {
   allBlogPosts,
   allCustomersPosts,
@@ -25,12 +25,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/help",
     "/blog",
     "/kunder",
-    "/integrations",
+    "/integrasjoner",
   ].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
     changeFrequency: "daily" as const,
     priority: route === "" ? 1.0 : 0.8,
+  }))
+
+  // Blog category pages
+  const blogCategories = BLOG_CATEGORIES.map((category) => ({
+    url: `${baseUrl}/blog/category/${category.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "weekly" as const,
+    priority: 0.7,
   }))
 
   // Help category pages
@@ -75,6 +83,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   return [
     ...staticPages,
+    ...blogCategories,
     ...helpCategories,
     ...helpPages,
     ...blogPages,

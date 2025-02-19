@@ -14,7 +14,7 @@ export const BLOG_CATEGORIES = [
     title: "Selskapet",
     slug: "company",
     description:
-      "Siste oppdateringer og nyheter fra Propdock. Lær om vår plattform og teamet bak.",
+      "Siste oppdateringer og nyheter fra Propdock. Få innsikt i vår innovative plattform, teknologi og teamet som driver utviklingen fremover.",
   },
   {
     title: "Verdivurdering",
@@ -26,13 +26,13 @@ export const BLOG_CATEGORIES = [
     title: "Markedsanalyse",
     slug: "market-analysis",
     description:
-      "Dyptgående markedsanalyser og trender i det norske næringseiendomsmarkedet.",
+      "Grundige analyser av trender og utvikling i det norske næringseiendomsmarkedet. Få innsikt i markedsdynamikk og muligheter.",
   },
   {
     title: "Kundehistorier",
     slug: "casestudies",
     description:
-      "Suksesshistorier fra eiendomsforvaltere og investorer som bruker Propdock.",
+      "Utforsk hvordan ledende eiendomsaktører bruker Propdock for å optimalisere sine porteføljer og forbedre beslutningsprosesser.",
   },
 ]
 
@@ -59,42 +59,42 @@ export const HELP_CATEGORIES: {
     title: "Plattformoversikt",
     slug: "overview",
     description:
-      "Propdock er en avansert analyseplattform for verdsettelser av næringseiendom.",
+      "Utforsk Propdocks avanserte analyseplattform for verdsettelse av næringseiendom. Lær om våre kjernefunksjoner og metodikk.",
     icon: <RiBuilding4Line className="h-6 w-6 text-gray-500" />,
   },
   {
     title: "Kom i gang",
     slug: "getting-started",
     description:
-      "Veiledninger for å komme i gang med verdivurdering og porteføljeanalyse.",
+      "Omfattende guide for å komme i gang med Propdock. Lær om verdivurdering, porteføljeanalyse og beste praksis for optimal bruk.",
     icon: <RiBarChartBoxLine className="h-6 w-6 text-gray-500" />,
   },
   {
     title: "Begreper",
     slug: "terms",
     description:
-      "Lær om viktige begreper og terminologi innen næringseiendom og analyse.",
+      "Grundig gjennomgang av sentrale begreper og terminologi innen næringseiendom. Få innsikt i bransjestandarder og metodikk.",
     icon: <RiBuildingLine className="h-6 w-6 text-gray-500" />,
   },
   {
     title: "For Investorer",
     slug: "for-investors",
     description:
-      "Avanserte analyseverktøy for investeringsbeslutninger og scenariomodellering.",
+      "Avanserte verktøy og strategier for investeringsanalyse. Optimaliser porteføljen din med data-drevet beslutningsstøtte og scenariomodeller.",
     icon: <RiFileChartLine className="h-6 w-6 text-gray-500" />,
   },
   {
     title: "Markedsanalyse",
     slug: "analysis",
     description:
-      "Lær hvordan du bruker markedsdata og trender for bedre investeringsbeslutninger.",
+      "Lær å utnytte markedsdata og trender for bedre investeringsbeslutninger. Få innsikt i markedsdynamikk og identifiser muligheter.",
     icon: <RiTeamLine className="h-6 w-6 text-gray-500" />,
   },
   {
     title: "Verdivurdering",
     slug: "valuation",
     description:
-      "Forstå DCF-modeller, yield-analyser og andre verktøy for verdivurdering.",
+      "Omfattende guide til verdivurdering av næringseiendom. Lær om DCF-modeller, yield-analyser og beste praksis for presise vurderinger.",
     icon: <RiSettings4Line className="h-6 w-6 text-gray-500" />,
   },
 ]

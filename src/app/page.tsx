@@ -8,8 +8,7 @@ import LogoCloud from "@/components/ui/LogoCloud"
 import { constructMetadata } from "@/lib/utils"
 
 export const metadata = constructMetadata({
-  title:
-    "Propdock - Intelligent verdsettelse og verdivurdering av næringseiendom",
+  title: "Propdock | Intelligent verdsettelse av næringseiendom",
   description:
     "Avansert plattform for verdsettelse og verdivurdering av næringseiendom. Få innsikt med DCF-analyser, yield-beregninger og markedsdata for bedre investeringsbeslutninger.",
 })

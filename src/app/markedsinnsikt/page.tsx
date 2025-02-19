@@ -5,7 +5,7 @@ import { constructMetadata } from "@/lib/utils"
 export const metadata = constructMetadata({
   title: "Markedsinnsikt for næringseiendom | Propdock",
   description:
-    "Få tilgang til omfattende markedsdata og analyser for næringseiendom. Sanntids markedstrender, yield-analyser og demografiske data for bedre investeringsbeslutninger.",
+    "Få tilgang til markedsdata og analyser for næringseiendom. Oppdaterte trender, yield-analyser og demografiske data for bedre investeringer.",
 })
 
 export default function MarkedsinnsiktPage() {
