@@ -1,12 +1,13 @@
-"use client";
+"use client"
 
-import { Dispatch, SetStateAction } from "react";
-import { useRouter } from "next/navigation";
-import * as Dialog from "@radix-ui/react-dialog";
-import { Drawer } from "vaul";
+import * as Dialog from "@radix-ui/react-dialog"
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden"
+import { useRouter } from "next/navigation"
+import { Dispatch, SetStateAction } from "react"
+import { Drawer } from "vaul"
 
-import { cn } from "@/lib/utils";
-import useMediaQuery from "@/lib/hooks/use-media-query";
+import useMediaQuery from "@/lib/hooks/use-media-query"
+import { cx } from "@/lib/utils"
 
 export default function Modal({
   children,
@@ -17,32 +18,32 @@ export default function Modal({
   onClose,
   preventDefaultClose,
 }: {
-  children: React.ReactNode;
-  className?: string;
-  dialogOnly?: boolean;
-  showModal?: boolean;
-  setShowModal?: Dispatch<SetStateAction<boolean>>;
-  onClose?: () => void;
-  preventDefaultClose?: boolean;
+  children: React.ReactNode
+  className?: string
+  dialogOnly?: boolean
+  showModal?: boolean
+  setShowModal?: Dispatch<SetStateAction<boolean>>
+  onClose?: () => void
+  preventDefaultClose?: boolean
 }) {
-  const router = useRouter();
+  const router = useRouter()
 
   const closeModal = ({ dragged }: { dragged?: boolean } = {}) => {
     if (preventDefaultClose && !dragged) {
-      return;
+      return
     }
     // fire onClose event if provided
-    onClose && onClose();
+    onClose && onClose()
 
     // if setShowModal is defined, use it to close modal
     if (setShowModal) {
-      setShowModal(false);
+      setShowModal(false)
       // else, this is intercepting route @modal
     } else {
-      router.back();
+      router.back()
     }
-  };
-  const { isMobile } = useMediaQuery();
+  }
+  const { isMobile } = useMediaQuery()
 
   if (isMobile && !dialogOnly) {
     return (
@@ -50,34 +51,34 @@ export default function Modal({
         open={setShowModal ? showModal : true}
         onOpenChange={(open) => {
           if (!open) {
-            closeModal({ dragged: true });
+            closeModal({ dragged: true })
           }
         }}
       >
-        <Drawer.Overlay className="fixed inset-0 z-40 bg-gray-100 bg-opacity-10 backdrop-blur" />
+        <Drawer.Overlay className="fixed inset-0 z-40 bg-warm-grey-2/5 backdrop-blur" />
         <Drawer.Portal>
           <Drawer.Content
-            className={cn(
-              "fixed bottom-0 left-0 right-0 z-50 mt-24 rounded-t-[10px] border-t border-gray-200 bg-white",
-              className
+            className={cx(
+              "fixed bottom-0 left-0 right-0 z-50 mt-24 rounded-t-[10px] border-t border-warm-grey-2/20 bg-warm-white dark:bg-warm-grey",
+              className,
             )}
           >
             <div className="sticky top-0 z-20 flex w-full items-center justify-center rounded-t-[10px] bg-inherit">
-              <div className="my-3 h-1 w-12 rounded-full bg-gray-300" />
+              <div className="my-3 h-1 w-12 rounded-full bg-warm-grey-2/20" />
             </div>
             {children}
           </Drawer.Content>
           <Drawer.Overlay />
         </Drawer.Portal>
       </Drawer.Root>
-    );
+    )
   }
   return (
     <Dialog.Root
       open={setShowModal ? showModal : true}
       onOpenChange={(open) => {
         if (!open) {
-          closeModal();
+          closeModal()
         }
       }}
     >
@@ -85,19 +86,22 @@ export default function Modal({
         <Dialog.Overlay
           // for detecting when there's an active opened modal
           id="modal-backdrop"
-          className="fixed inset-0 z-40 animate-fade-in bg-gray-100 bg-opacity-50 backdrop-blur-md"
+          className="animate-fade-in fixed inset-0 z-40 bg-warm-grey-2/5 backdrop-blur-md"
         />
         <Dialog.Content
           onOpenAutoFocus={(e) => e.preventDefault()}
           onCloseAutoFocus={(e) => e.preventDefault()}
-          className={cn(
-            "animate-scale-in fixed inset-0 z-40 m-auto max-h-fit w-full max-w-md overflow-hidden border border-gray-200 bg-white p-0 shadow-xl md:rounded-2xl",
-            className
+          className={cx(
+            "animate-scale-in fixed inset-0 z-40 m-auto max-h-fit w-full max-w-md overflow-hidden bg-warm-white p-0 shadow-xl md:rounded-2xl dark:bg-warm-grey",
+            className,
           )}
         >
+          <Dialog.Title asChild>
+            <VisuallyHidden>Søk</VisuallyHidden>
+          </Dialog.Title>
           {children}
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>
-  );
+  )
 }

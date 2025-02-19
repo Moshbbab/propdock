@@ -1,16 +1,14 @@
 "use client"
 
-import type { Dispatch, SetStateAction } from "react"
-import { useCallback, useEffect, useMemo, useRef, useState } from "react"
-import { useRouter } from "next/navigation"
-import va from "@vercel/analytics"
 import { Command, useCommandState } from "cmdk"
 import { allHelpPosts } from "content-collections"
 import Fuse from "fuse.js"
+import { useRouter } from "next/navigation"
+import type { Dispatch, SetStateAction } from "react"
+import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import Highlighter from "react-highlight-words"
 import { useDebouncedCallback } from "use-debounce"
 
-import { APP_HOSTNAMES, HOME_DOMAIN } from "@/lib/blog/constructMetadata"
 import { POPULAR_ARTICLES } from "@/lib/blog/content"
 
 import ExpandingArrow from "./icons/expanding-arrow"
@@ -26,9 +24,7 @@ function CMDKHelper({
 }) {
   const commandListRef = useRef<HTMLDivElement>(null)
   const debouncedTrackSearch = useDebouncedCallback((query: string) => {
-    va.track("CMDK Search", {
-      query,
-    })
+    // Analytics removed
   }, 1000)
 
   return (
@@ -41,26 +37,25 @@ function CMDKHelper({
         <Command.Input
           autoFocus
           onInput={(e) => {
-            // hack to scroll to top of list when input changes (for some reason beyond my comprehension, setTimeout is needed)
             setTimeout(() => {
               commandListRef.current?.scrollTo(0, 0)
             }, 0)
             debouncedTrackSearch(e.currentTarget.value)
           }}
           placeholder="Søk etter artikler, guider og mer..."
-          className="w-full border-none bg-background p-4 font-normal text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-0"
+          className="w-full border-none bg-warm-white p-4 font-normal text-warm-grey focus:outline-none focus:ring-0 dark:bg-warm-grey dark:text-warm-white"
         />
         <Command.List
           ref={commandListRef}
-          className="scrollbar-hide h-[50vh] max-h-[360px] min-h-[250px] overflow-scroll border-t border-border bg-background p-2 transition-all sm:h-[calc(var(--cmdk-list-height)+10rem)]"
+          className="scrollbar-hide h-[50vh] max-h-[360px] min-h-[250px] overflow-scroll border-t border-warm-grey-2 bg-warm-white p-2 transition-all sm:h-[calc(var(--cmdk-list-height)+10rem)] dark:bg-warm-grey"
         >
-          <Command.Empty className="flex cursor-not-allowed items-center space-x-2 rounded-md bg-muted px-4 py-2 text-sm text-muted-foreground">
-            <Magic className="h-4 w-4 text-muted-foreground" />
+          <Command.Empty className="flex cursor-not-allowed items-center space-x-2 rounded-md bg-warm-grey-1/10 px-4 py-2 text-sm text-warm-grey dark:text-warm-white">
+            <Magic className="h-4 w-4 text-warm-grey-2" />
             <div className="flex flex-col space-y-1">
-              <p className="text-sm font-medium text-primary">
+              <p className="text-sm font-medium text-warm-grey dark:text-warm-white">
                 Ask AI (Coming soon)
               </p>
-              <p className="text-xs text-muted-foreground">
+              <p className="text-xs text-warm-grey-2">
                 Use our AI to find answers to your questions
               </p>
             </div>
@@ -128,37 +123,28 @@ const CommandResults = ({
       key={slug}
       value={title}
       onSelect={() => {
-        va.track("CMDK Search Selected", {
-          query: search,
-          slug,
-        })
-        if (APP_HOSTNAMES.has(window.location.hostname)) {
-          // this is from the app, open in new tab
-          window.open(`${HOME_DOMAIN}/help/article/${slug}`)
-        } else {
-          router.push(`/help/article/${slug}`)
-        }
+        router.push(`/help/article/${slug}`)
         setShowCMDK(false)
       }}
-      className="group flex cursor-pointer items-center justify-between space-x-2 rounded-md px-4 py-2 hover:bg-muted active:bg-muted/70 aria-selected:bg-muted"
+      className="group flex cursor-pointer items-center justify-between space-x-2 rounded-md px-4 py-2 hover:bg-warm-grey-1/10 active:bg-warm-grey-1/20 aria-selected:bg-warm-grey-1/10"
     >
       <div className="flex flex-col space-y-1">
         <Highlighter
-          highlightClassName="underline bg-transparent text-purple-500 dark:text-purple-400"
+          highlightClassName="underline bg-transparent text-warm-grey dark:text-warm-white font-medium"
           searchWords={search.split(" ")}
           autoEscape={true}
           textToHighlight={title}
-          className="text-sm font-medium text-foreground group-aria-selected:text-purple-600 dark:group-aria-selected:text-purple-400 sm:group-hover:text-purple-600 dark:sm:group-hover:text-purple-400"
+          className="text-sm font-medium text-warm-grey group-aria-selected:text-warm-grey-2 sm:group-hover:text-warm-grey-2 dark:text-warm-white dark:group-aria-selected:text-warm-grey-1"
         />
         <Highlighter
-          highlightClassName="underline bg-transparent text-purple-500 dark:text-purple-400"
+          highlightClassName="underline bg-transparent text-warm-grey dark:text-warm-white"
           searchWords={search.split(" ")}
           autoEscape={true}
           textToHighlight={summary}
-          className="line-clamp-1 text-xs text-muted-foreground"
+          className="line-clamp-1 text-xs text-warm-grey-2"
         />
       </div>
-      <ExpandingArrow className="invisible -ml-4 h-4 w-4 text-purple-600 group-aria-selected:visible dark:text-purple-400 sm:group-hover:visible" />
+      <ExpandingArrow className="invisible -ml-4 h-4 w-4 text-warm-grey-2 group-aria-selected:visible sm:group-hover:visible dark:text-warm-grey-1" />
     </Command.Item>
   ))
 }
