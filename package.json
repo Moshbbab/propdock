@@ -33,6 +33,7 @@
     "@types/mapbox-gl": "^3.4.1",
     "@types/mapbox__mapbox-gl-draw": "^1.4.8",
     "@types/mdx": "^2.0.13",
+    "@vercel/og": "^0.6.5",
     "clsx": "^2.1.1",
     "cmdk": "^1.0.4",
     "cobe": "^0.6.3",

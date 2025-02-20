@@ -35,7 +35,7 @@ export async function generateMetadata({
   const { title, summary } = post
 
   return constructMetadata({
-    title: `${title} – Propdock Hjelpesenter`,
+    title: `${title} – Propdock Kunnskapsbase`,
     description: summary,
     image: `/api/og/help?title=${encodeURIComponent(
       title,
