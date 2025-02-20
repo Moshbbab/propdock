@@ -8,7 +8,7 @@ import Balancer from "react-wrap-balancer"
 export const metadata = constructMetadata({
   title: "Om Propdock | Intelligent verdsettelse av næringseiendom",
   description:
-    "Propdock er et ledende teknologiselskap som utvikler avanserte verktøy for verdsettelse og analyse av næringseiendom. Vår innovative plattform kombinerer markedsledende teknologi med dyp bransjeinnsikt.",
+    "Propdock utvikler markedsledende teknologi for verdsettelse av næringseiendom. Vi kombinerer innovasjon med dyp bransjeinnsikt.",
 })
 
 export default function About() {

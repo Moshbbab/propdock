@@ -14,7 +14,7 @@ const inter = Inter({
 export const metadata = constructMetadata({
   title: "Propdock - Intelligent verdsettelse av næringseiendom",
   description:
-    "Avansert plattform for verdsettelse og verdivurdering av næringseiendom. Få innsikt med DCF-analyser, yield-beregninger og markedsdata for bedre investeringsbeslutninger.",
+    "Velg riktig verdsettelsesløsning for din næringseiendom. Få tilgang til markedsdatat, yield-beregninger og DCF-analyser for presise vurderinger.",
 })
 
 export default function RootLayout({

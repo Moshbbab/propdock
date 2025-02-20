@@ -11,7 +11,7 @@ export const metadata = constructMetadata({
   title:
     "Propdock - Intelligent verdsettelse og verdivurdering av næringseiendom",
   description:
-    "Avansert plattform for verdsettelse og verdivurdering av næringseiendom. Få innsikt med DCF-analyser, yield-beregninger og markedsdata for bedre investeringsbeslutninger.",
+    "Avansert plattform for verdsettelse og verdivurdering av næringseiendom. Få innsikt med markedsdatat og yield-beregninger for bedre investeringsbeslutninger.",
 })
 
 export default function Home() {

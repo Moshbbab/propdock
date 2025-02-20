@@ -19,9 +19,9 @@ export default function KontaktPage() {
       {/* Contact Information Section */}
       <div className="mx-auto w-full max-w-6xl px-3 pb-32">
         <div className="mt-20 text-center">
-          <h2 className="text-balance bg-gradient-to-t from-warm-grey to-warm-grey-3 bg-clip-text text-3xl font-bold tracking-tighter text-transparent sm:text-4xl dark:from-warm-white dark:to-warm-grey-1">
-            Ønsker du å vite mer?
-          </h2>
+          <h1 className="text-balance bg-gradient-to-t from-warm-grey to-warm-grey-3 bg-clip-text text-3xl font-bold tracking-tighter text-transparent sm:text-4xl dark:from-warm-white dark:to-warm-grey-1">
+            Kontakt Propdock
+          </h1>
           <p className="mx-auto mt-4 max-w-2xl text-warm-grey-2 dark:text-warm-grey-1">
             Ta gjerne direkte kontakt med meg for en uforpliktende prat om
             hvordan Propdock kan hjelpe deg med verdsettelse av næringseiendom.

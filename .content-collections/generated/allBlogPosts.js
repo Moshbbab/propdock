@@ -10,7 +10,7 @@ export default [
     "featured": false,
     "image": "https://imagedelivery.net/r-6-yk-gGPtjfbIST9-8uA/4ca9b6ff-03e7-4dcc-8167-d7203befc700/public",
     "author": "codehagen",
-    "summary": "Vi er stolte av å presentere Propdock, en innovativ plattform for analyse og verdivurdering av næringseiendom som kombinerer avansert teknologi med dyp fagkunnskap.",
+    "summary": "Opplev Propdock - den innovative plattformen for analyse og verdivurdering av næringseiendom som forener teknologi med fagekspertise.",
     "related": [
       "kunnskapsbase"
     ],
