@@ -53,10 +53,10 @@ function CMDKHelper({
             <Magic className="h-4 w-4 text-warm-grey-2" />
             <div className="flex flex-col space-y-1">
               <p className="text-sm font-medium text-warm-grey dark:text-warm-white">
-                Ask AI (Coming soon)
+                Spør AI (Coming soon)
               </p>
               <p className="text-xs text-warm-grey-2">
-                Use our AI to find answers to your questions
+                Bruk vår AI til å finne svar på dine spørsmål
               </p>
             </div>
           </Command.Empty>

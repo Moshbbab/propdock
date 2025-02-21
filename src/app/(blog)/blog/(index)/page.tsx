@@ -7,7 +7,7 @@ import { constructMetadata } from "@/lib/utils"
 export const metadata = constructMetadata({
   title: "Blog – Propdock",
   description:
-    "Latest news and updates from Propdock. Discover expert insights, industry trends, and success stories.",
+    "Siste nyheter, trends og innsikter fra Propdock. Finn ekspertråd og veiledning for å forvalte og investere i næringseiendom.",
 })
 
 export default async function Blog() {

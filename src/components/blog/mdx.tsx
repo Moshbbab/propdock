@@ -165,7 +165,7 @@ const components = {
     />
   ),
   ul: (props: any) => (
-    <ul className="my-2 list-disc space-y-6 pl-6" {...props} />
+    <ul className="my-2 list-disc space-y-2 pl-6" {...props} />
   ),
   ol: (props: any) => (
     <ol className="my-2 list-decimal space-y-2 pl-6" {...props} />
