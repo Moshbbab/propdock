@@ -1,16 +1,55 @@
 import React from "react"
+import { tv, type VariantProps } from "tailwind-variants"
 
-interface BadgeProps extends React.ComponentPropsWithoutRef<"span"> {}
+import { cx } from "@/lib/utils"
+
+const badgeVariants = tv({
+  base: cx(
+    "inline-flex items-center gap-x-1 whitespace-nowrap rounded-lg px-3 py-1.5 text-xs font-semibold uppercase tracking-tighter ring-1 ring-inset sm:text-sm",
+  ),
+  variants: {
+    variant: {
+      default: [
+        "bg-light-blue-1/50 ring-warm-grey/20",
+        "dark:bg-light-blue/20 dark:ring-warm-white/30",
+      ],
+      neutral: [
+        "bg-gray-50 ring-gray-500/30",
+        "dark:bg-gray-400/10 dark:ring-gray-400/20",
+      ],
+      success: [
+        "bg-emerald-50 ring-emerald-600/30",
+        "dark:bg-emerald-400/10 dark:ring-emerald-400/20",
+      ],
+      error: [
+        "bg-rose-50 ring-rose-600/20",
+        "dark:bg-rose-400/10 dark:ring-rose-400/20",
+      ],
+      warning: [
+        "bg-orange-50 ring-orange-600/30",
+        "dark:bg-orange-400/10 dark:ring-orange-400/20",
+      ],
+    },
+  },
+  defaultVariants: {
+    variant: "default",
+  },
+})
+
+interface BadgeProps
+  extends React.ComponentPropsWithoutRef<"span">,
+    VariantProps<typeof badgeVariants> {}
 
 const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
-  ({ children, className, ...props }: BadgeProps, forwardedRef) => {
+  ({ className, variant, children, ...props }: BadgeProps, forwardedRef) => {
     return (
       <span
         ref={forwardedRef}
-        className="border-warm-grey/20 bg-light-blue-1/50 dark:border-warm-white/30 dark:bg-light-blue/20 z-10 block w-fit rounded-lg border px-3 py-1.5 font-semibold uppercase leading-4 tracking-tighter sm:text-sm"
+        className={cx(badgeVariants({ variant }), className)}
+        tremor-id="tremor-raw"
         {...props}
       >
-        <span className="from-warm-grey to-warm-grey-2 dark:from-warm-white dark:to-warm-grey-1 bg-gradient-to-b bg-clip-text text-transparent">
+        <span className="bg-gradient-to-b from-warm-grey to-warm-grey-2 bg-clip-text text-transparent dark:from-warm-white dark:to-warm-grey-1">
           {children}
         </span>
       </span>
@@ -20,4 +59,4 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
 
 Badge.displayName = "Badge"
 
-export { Badge, type BadgeProps }
+export { Badge, badgeVariants, type BadgeProps }
