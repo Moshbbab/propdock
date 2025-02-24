@@ -1,4 +1,6 @@
 "use client"
+import { submitOnboarding } from "@/app/actions/onboarding/onboarding"
+import { searchOrganization } from "@/app/actions/onboarding/search-organization"
 import { Button } from "@/components/Button"
 import { Input } from "@/components/Input"
 import { Label } from "@/components/Label"
@@ -92,6 +94,14 @@ interface FormData {
   }
 }
 
+interface CompanySearchResult {
+  name: string
+  orgnr: string
+  address: string
+  zip: string
+  city: string
+}
+
 export default function Products() {
   const [formData, setFormData] = React.useState<FormData>({
     step: 1,
@@ -108,6 +118,11 @@ export default function Products() {
     },
   })
   const [loading, setLoading] = React.useState(false)
+  const [searchResults, setSearchResults] = React.useState<
+    CompanySearchResult[]
+  >([])
+  const [searching, setSearching] = React.useState(false)
+  const searchTimeoutRef = React.useRef<NodeJS.Timeout | null>(null)
 
   const handleNextStep = () => {
     if (formData.step < 3) {
@@ -123,15 +138,58 @@ export default function Products() {
     }
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     setLoading(true)
-    // Placeholder for submission
-    console.log("Form submitted:", formData)
-    setTimeout(() => {
+    try {
+      const response = await submitOnboarding({
+        purpose: formData.purpose,
+        company: formData.company,
+        contact: formData.contact,
+      })
+
+      if (response.success) {
+        // Show success message with loading animation
+        const message = document.createElement("div")
+        message.className =
+          "fixed inset-0 z-50 flex items-center justify-center bg-warm-grey/20 backdrop-blur-sm dark:bg-warm-grey-1/20 motion-safe:animate-fadeIn"
+        message.innerHTML = `
+          <div class="relative rounded-lg bg-warm-white p-8 shadow-lg dark:bg-warm-grey motion-safe:animate-scaleIn">
+            <div class="flex flex-col items-center gap-6 text-center">
+              <div class="text-3xl font-semibold text-warm-grey dark:text-warm-white motion-safe:animate-slideDown">
+                Velkommen til PropDock!
+              </div>
+              <div class="space-y-3 motion-safe:animate-fadeIn" style="animation-delay: 200ms">
+                <p class="text-lg text-warm-grey dark:text-warm-white">
+                  Takk for registreringen!
+                </p>
+                <p class="text-warm-grey-2 dark:text-warm-grey-1">
+                  Vi setter opp Propdock for deg...
+                </p>
+              </div>
+              <div class="flex items-center gap-2 motion-safe:animate-fadeIn" style="animation-delay: 400ms">
+                <div class="h-2 w-2 animate-[wave_1s_ease-in-out_infinite] rounded-full bg-warm-grey dark:bg-warm-white"></div>
+                <div class="h-2 w-2 animate-[wave_1s_ease-in-out_infinite_200ms] rounded-full bg-warm-grey dark:bg-warm-white"></div>
+                <div class="h-2 w-2 animate-[wave_1s_ease-in-out_infinite_400ms] rounded-full bg-warm-grey dark:bg-warm-white"></div>
+              </div>
+            </div>
+          </div>
+        `
+        document.body.appendChild(message)
+
+        // Wait a moment to show the message
+        await new Promise((resolve) => setTimeout(resolve, 2000))
+
+        // Redirect to simulation
+        window.location.href = "/propdock/simulering"
+      } else {
+        alert("Det oppstod en feil. Vennligst prøv igjen.")
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error)
+      alert("Det oppstod en feil. Vennligst prøv igjen.")
+    } finally {
       setLoading(false)
-      // Here you can add the redirect or success message
-      alert("Takk for registreringen!")
-    }, 1000)
+    }
   }
 
   const isStepValid = () => {
@@ -153,6 +211,40 @@ export default function Products() {
       default:
         return false
     }
+  }
+
+  const handleCompanySearch = async (query: string) => {
+    if (searchTimeoutRef.current) {
+      clearTimeout(searchTimeoutRef.current)
+    }
+
+    if (!query) {
+      setSearchResults([])
+      return
+    }
+
+    setSearching(true)
+    searchTimeoutRef.current = setTimeout(async () => {
+      const result = await searchOrganization(query)
+      if (result.success && result.data) {
+        setSearchResults(result.data)
+      } else {
+        setSearchResults([])
+      }
+      setSearching(false)
+    }, 300)
+  }
+
+  const selectCompany = (company: CompanySearchResult) => {
+    setFormData((prev) => ({
+      ...prev,
+      company: {
+        name: company.name,
+        orgNumber: company.orgnr,
+        address: `${company.address}, ${company.zip} ${company.city}`,
+      },
+    }))
+    setSearchResults([])
   }
 
   return (
@@ -222,68 +314,70 @@ export default function Products() {
               Bedriftsinformasjon
             </h1>
             <p className="text-warm-grey-2 dark:text-warm-grey-1">
-              Fortell oss litt om bedriften din.
+              Søk etter din bedrift med navn eller organisasjonsnummer.
             </p>
           </div>
 
           <div className="space-y-4">
             <div className="space-y-2">
               <Label
-                htmlFor="companyName"
+                htmlFor="companySearch"
                 className="text-warm-grey dark:text-warm-white"
               >
-                Bedriftsnavn
+                Søk etter bedrift
               </Label>
               <Input
-                id="companyName"
-                value={formData.company.name}
-                onChange={(e) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    company: { ...prev.company, name: e.target.value },
-                  }))
-                }
+                id="companySearch"
+                placeholder="Bedriftsnavn eller org.nummer"
+                onChange={(e) => handleCompanySearch(e.target.value)}
                 className="border-warm-grey-2/20 bg-warm-white text-warm-grey placeholder:text-warm-grey-2 dark:border-warm-grey-1/20 dark:bg-warm-grey dark:text-warm-white dark:placeholder:text-warm-grey-1"
               />
             </div>
-            <div className="space-y-2">
-              <Label
-                htmlFor="orgNumber"
-                className="text-warm-grey dark:text-warm-white"
-              >
-                Organisasjonsnummer
-              </Label>
-              <Input
-                id="orgNumber"
-                value={formData.company.orgNumber}
-                onChange={(e) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    company: { ...prev.company, orgNumber: e.target.value },
-                  }))
-                }
-                className="border-warm-grey-2/20 bg-warm-white text-warm-grey placeholder:text-warm-grey-2 dark:border-warm-grey-1/20 dark:bg-warm-grey dark:text-warm-white dark:placeholder:text-warm-grey-1"
-              />
-            </div>
-            <div className="space-y-2">
-              <Label
-                htmlFor="address"
-                className="text-warm-grey dark:text-warm-white"
-              >
-                Adresse
-              </Label>
-              <Input
-                id="address"
-                value={formData.company.address}
-                onChange={(e) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    company: { ...prev.company, address: e.target.value },
-                  }))
-                }
-                className="border-warm-grey-2/20 bg-warm-white text-warm-grey placeholder:text-warm-grey-2 dark:border-warm-grey-1/20 dark:bg-warm-grey dark:text-warm-white dark:placeholder:text-warm-grey-1"
-              />
-            </div>
+
+            {searching && (
+              <p className="text-sm text-warm-grey-2 dark:text-warm-grey-1">
+                Søker...
+              </p>
+            )}
+
+            {searchResults.length > 0 && (
+              <div className="space-y-2 rounded-md border border-warm-grey-2/20 p-2 dark:border-warm-grey-1/20">
+                {searchResults.map((company) => (
+                  <button
+                    key={company.orgnr}
+                    onClick={() => selectCompany(company)}
+                    type="button"
+                    className={cx(
+                      "w-full rounded-md p-2 text-left transition-colors",
+                      "hover:bg-warm-grey-2/5 dark:hover:bg-warm-grey-1/5",
+                    )}
+                  >
+                    <div className="text-sm font-medium text-warm-grey dark:text-warm-white">
+                      {company.name}
+                    </div>
+                    <div className="text-xs text-warm-grey-2 dark:text-warm-grey-1">
+                      Org.nr: {company.orgnr}
+                    </div>
+                    <div className="text-xs text-warm-grey-2 dark:text-warm-grey-1">
+                      {company.address}, {company.zip} {company.city}
+                    </div>
+                  </button>
+                ))}
+              </div>
+            )}
+
+            {formData.company.name && (
+              <div className="rounded-md border border-warm-grey-2/20 p-4 dark:border-warm-grey-1/20">
+                <h3 className="font-medium text-warm-grey dark:text-warm-white">
+                  Valgt bedrift
+                </h3>
+                <div className="mt-2 space-y-1 text-sm text-warm-grey-2 dark:text-warm-grey-1">
+                  <p>{formData.company.name}</p>
+                  <p>Org.nr: {formData.company.orgNumber}</p>
+                  <p>{formData.company.address}</p>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       )}

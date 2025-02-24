@@ -1,65 +1,17 @@
-"use client"
-import useScroll from "@/lib/use-scroll"
-import { cx } from "@/lib/utils"
-import { usePathname } from "next/navigation"
+import { constructMetadata } from "@/lib/utils"
 import React from "react"
 
-interface Step {
-  name: string
-  href: string
-}
-
-const steps: Step[] = [
-  { name: "Product selection", href: "/onboarding/product" },
-  { name: "Employees", href: "/onboarding/employees" },
-  { name: "Infrastructure", href: "/onboarding/infrastructure" },
-]
-
-interface StepProgressProps {
-  steps: Step[]
-}
-
-const StepProgress = ({ steps }: StepProgressProps) => {
-  const pathname = usePathname()
-  const currentStepIndex = steps.findIndex((step) =>
-    pathname.startsWith(step.href),
-  )
-
-  return (
-    <div aria-label="Onboarding progress">
-      <ol className="mx-auto flex w-24 flex-nowrap gap-1 md:w-fit">
-        {steps.map((step, index) => (
-          <li
-            key={step.name}
-            className={cx(
-              "h-1 w-12 rounded-full",
-              index <= currentStepIndex
-                ? "bg-warm-grey dark:bg-warm-white"
-                : "bg-warm-grey-2/30 dark:bg-warm-grey-1/30",
-            )}
-          >
-            <span className="sr-only">
-              {step.name}{" "}
-              {index < currentStepIndex
-                ? "completed"
-                : index === currentStepIndex
-                  ? "current"
-                  : ""}
-            </span>
-          </li>
-        ))}
-      </ol>
-    </div>
-  )
-}
+export const metadata = constructMetadata({
+  title: "Simulering og Onboarding | Propdock",
+  description:
+    "Test og utforsk Propdocks avanserte verdsettelsesverktøy gjennom vår interaktive simulering. Lær hvordan du kan utføre presise verdivurderinger av næringseiendom.",
+})
 
 const Layout = ({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) => {
-  const scrolled = useScroll(15)
-
   return (
     <>
       <main id="main-content" className="mx-auto mb-20 mt-28 max-w-lg">
