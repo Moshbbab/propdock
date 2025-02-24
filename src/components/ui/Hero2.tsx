@@ -38,7 +38,7 @@ export function Hero2() {
         <FadeDiv>
           <a
             className="mt-6 inline-flex cursor-pointer flex-row items-center justify-center gap-1 whitespace-nowrap rounded-md bg-warm-grey px-5 py-3 font-medium leading-4 tracking-wide text-warm-white shadow-[0_0_0_2px_rgba(0,0,0,0.04),0_0_14px_0_rgba(255,255,255,0.19)] transition-all duration-200 ease-in-out hover:bg-warm-grey-3 hover:shadow-light-blue/30"
-            href="/tjenester"
+            href="/onboarding"
           >
             Prøv simulering
           </a>

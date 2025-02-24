@@ -94,6 +94,11 @@ interface FormData {
   }
 }
 
+interface FormErrors {
+  email?: string
+  phone?: string
+}
+
 interface CompanySearchResult {
   name: string
   orgnr: string
@@ -117,6 +122,7 @@ export default function Products() {
       phone: "",
     },
   })
+  const [formErrors, setFormErrors] = React.useState<FormErrors>({})
   const [loading, setLoading] = React.useState(false)
   const [searchResults, setSearchResults] = React.useState<
     CompanySearchResult[]
@@ -128,13 +134,22 @@ export default function Products() {
     if (formData.step < 3) {
       setFormData((prev) => ({ ...prev, step: prev.step + 1 }))
     } else {
-      handleSubmit()
+      // Validate contact form before submission
+      const emailError = validateEmail(formData.contact.email)
+      const phoneError = validatePhone(formData.contact.phone)
+      setFormErrors({ email: emailError, phone: phoneError })
+
+      if (!emailError && !phoneError && formData.contact.name) {
+        handleSubmit()
+      }
     }
   }
 
   const handlePrevStep = () => {
     if (formData.step > 1) {
       setFormData((prev) => ({ ...prev, step: prev.step - 1 }))
+      // Clear errors when going back
+      setFormErrors({})
     }
   }
 
@@ -192,6 +207,43 @@ export default function Products() {
     }
   }
 
+  const validateEmail = (email: string): string | undefined => {
+    if (!email) return "E-post er påkrevd"
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(email)) return "Ugyldig e-postadresse"
+    return undefined
+  }
+
+  const validatePhone = (phone: string): string | undefined => {
+    if (!phone) return "Telefonnummer er påkrevd"
+    // Norwegian phone number format (8 digits, optional country code)
+    const phoneRegex = /^(?:\+47|0047)?[2-9]\d{7}$/
+    if (!phoneRegex.test(phone.replace(/\s+/g, ""))) {
+      return "Ugyldig telefonnummer (8 siffer)"
+    }
+    return undefined
+  }
+
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const email = e.target.value
+    setFormData((prev) => ({
+      ...prev,
+      contact: { ...prev.contact, email },
+    }))
+    const error = validateEmail(email)
+    setFormErrors((prev) => ({ ...prev, email: error }))
+  }
+
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const phone = e.target.value
+    setFormData((prev) => ({
+      ...prev,
+      contact: { ...prev.contact, phone },
+    }))
+    const error = validatePhone(phone)
+    setFormErrors((prev) => ({ ...prev, phone: error }))
+  }
+
   const isStepValid = () => {
     switch (formData.step) {
       case 1:
@@ -203,10 +255,11 @@ export default function Products() {
           formData.company.address !== ""
         )
       case 3:
+        // Only check validity without setting state
         return (
           formData.contact.name !== "" &&
-          formData.contact.email !== "" &&
-          formData.contact.phone !== ""
+          !validateEmail(formData.contact.email) &&
+          !validatePhone(formData.contact.phone)
         )
       default:
         return false
@@ -385,9 +438,9 @@ export default function Products() {
       {formData.step === 3 && (
         <div className="space-y-6">
           <div className="space-y-2">
-            <h1 className="text-2xl font-semibold text-warm-grey dark:text-warm-white">
+            <h2 className="text-2xl font-semibold text-warm-grey dark:text-warm-white">
               Kontaktinformasjon
-            </h1>
+            </h2>
             <p className="text-warm-grey-2 dark:text-warm-grey-1">
               Hvordan kan vi kontakte deg?
             </p>
@@ -411,6 +464,7 @@ export default function Products() {
                   }))
                 }
                 className="border-warm-grey-2/20 bg-warm-white text-warm-grey placeholder:text-warm-grey-2 dark:border-warm-grey-1/20 dark:bg-warm-grey dark:text-warm-white dark:placeholder:text-warm-grey-1"
+                required
               />
             </div>
             <div className="space-y-2">
@@ -424,14 +478,16 @@ export default function Products() {
                 id="email"
                 type="email"
                 value={formData.contact.email}
-                onChange={(e) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    contact: { ...prev.contact, email: e.target.value },
-                  }))
-                }
-                className="border-warm-grey-2/20 bg-warm-white text-warm-grey placeholder:text-warm-grey-2 dark:border-warm-grey-1/20 dark:bg-warm-grey dark:text-warm-white dark:placeholder:text-warm-grey-1"
+                onChange={handleEmailChange}
+                className={cx(
+                  "border-warm-grey-2/20 bg-warm-white text-warm-grey placeholder:text-warm-grey-2 dark:border-warm-grey-1/20 dark:bg-warm-grey dark:text-warm-white dark:placeholder:text-warm-grey-1",
+                  formErrors.email && "border-red-500 dark:border-red-500",
+                )}
+                required
               />
+              {formErrors.email && (
+                <p className="text-sm text-red-500">{formErrors.email}</p>
+              )}
             </div>
             <div className="space-y-2">
               <Label
@@ -444,14 +500,17 @@ export default function Products() {
                 id="phone"
                 type="tel"
                 value={formData.contact.phone}
-                onChange={(e) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    contact: { ...prev.contact, phone: e.target.value },
-                  }))
-                }
-                className="border-warm-grey-2/20 bg-warm-white text-warm-grey placeholder:text-warm-grey-2 dark:border-warm-grey-1/20 dark:bg-warm-grey dark:text-warm-white dark:placeholder:text-warm-grey-1"
+                onChange={handlePhoneChange}
+                placeholder="f.eks. +47 12345678"
+                className={cx(
+                  "border-warm-grey-2/20 bg-warm-white text-warm-grey placeholder:text-warm-grey-2 dark:border-warm-grey-1/20 dark:bg-warm-grey dark:text-warm-white dark:placeholder:text-warm-grey-1",
+                  formErrors.phone && "border-red-500 dark:border-red-500",
+                )}
+                required
               />
+              {formErrors.phone && (
+                <p className="text-sm text-red-500">{formErrors.phone}</p>
+              )}
             </div>
           </div>
         </div>
