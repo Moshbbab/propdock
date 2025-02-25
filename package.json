@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@calcom/embed-react": "^1.5.2",
     "@faker-js/faker": "^9.4.0",
     "@mapbox/mapbox-gl-draw": "^1.5.0",
     "@mdx-js/loader": "^3.1.0",
@@ -37,6 +38,7 @@
     "clsx": "^2.1.1",
     "cmdk": "^1.0.4",
     "cobe": "^0.6.3",
+    "embla-carousel-react": "^8.5.2",
     "fuse.js": "^7.1.0",
     "katex": "^0.16.21",
     "mapbox-gl": "^3.9.4",
@@ -46,6 +48,8 @@
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "react-highlight-words": "^0.21.0",
+    "react-hls-player": "^3.0.7",
+    "react-hotkeys-hook": "^4.6.1",
     "react-katex": "^3.0.1",
     "react-medium-image-zoom": "^5.2.13",
     "react-syntax-highlighter": "^15.6.1",
