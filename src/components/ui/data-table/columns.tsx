@@ -2,9 +2,15 @@
 
 import { Badge, BadgeProps } from "@/components/Badge"
 import { Checkbox } from "@/components/Checkbox"
-import { statuses } from "@/components/data/data"
+import {
+  cities,
+  leieprisVariants,
+  propertyTypes,
+  yieldVariants,
+} from "@/components/data/data"
 import { Usage } from "@/components/data/schema"
 import { formatters } from "@/lib/utils"
+import { RiArrowDownSLine, RiArrowUpSLine, RiEqualLine } from "@remixicon/react"
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table"
 import { DataTableColumnHeader } from "./DataTableColumnHeader"
 import { ConditionFilter } from "./DataTableFilter"
@@ -43,119 +49,76 @@ export const columns = [
       displayName: "Select",
     },
   }),
-  columnHelper.accessor("owner", {
+  columnHelper.accessor("eiendomsnavn", {
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Owner" />
+      <DataTableColumnHeader column={column} title="Eiendomsnavn" />
     ),
     enableSorting: true,
     enableHiding: false,
     meta: {
       className: "text-left",
-      displayName: "Owner",
+      displayName: "Eiendomsnavn",
     },
   }),
-  columnHelper.accessor("status", {
+  columnHelper.accessor("type", {
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Status" />
+      <DataTableColumnHeader column={column} title="Type" />
     ),
     enableSorting: true,
     meta: {
       className: "text-left",
-      displayName: "Status",
+      displayName: "Type",
     },
     cell: ({ row }) => {
-      const status = statuses.find(
-        (item) => item.value === row.getValue("status"),
+      const type = propertyTypes.find(
+        (item) => item.value === row.getValue("type"),
       )
 
-      if (!status) {
-        return null
+      if (!type) {
+        return row.getValue("type")
       }
 
       return (
-        <Badge variant={status.variant as BadgeProps["variant"]}>
-          {status.label}
+        <Badge variant={type.variant as BadgeProps["variant"]} size="table">
+          {type.label}
         </Badge>
       )
     },
+    filterFn: "arrIncludesSome",
   }),
-  columnHelper.accessor("region", {
+  columnHelper.accessor("by", {
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Region" />
+      <DataTableColumnHeader column={column} title="By" />
     ),
-    enableSorting: false,
+    enableSorting: true,
     meta: {
       className: "text-left",
-      displayName: "Region",
+      displayName: "By",
+    },
+    cell: ({ row }) => {
+      const cityValue = row.getValue("by") as string
+      const city = cities.find((item) => item.value === cityValue)
+
+      if (!city) {
+        return cityValue
+      }
+
+      return <span className="font-medium">{city.label}</span>
     },
     filterFn: "arrIncludesSome",
   }),
-  columnHelper.accessor("stability", {
+  columnHelper.accessor("byggeaar", {
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Stability" />
-    ),
-    enableSorting: false,
-    meta: {
-      className: "text-left",
-      displayName: "Stability",
-    },
-    cell: ({ getValue }) => {
-      const value = getValue()
-
-      function Indicator({ number }: { number: number }) {
-        let category
-        if (number === 0) {
-          category = "zero"
-        } else if (number < 9) {
-          category = "bad"
-        } else if (number >= 9 && number <= 15) {
-          category = "ok"
-        } else {
-          category = "good"
-        }
-
-        const getBarClass = (index: number) => {
-          if (category === "zero") {
-            return "bg-gray-300 dark:bg-gray-800"
-          } else if (category === "good") {
-            return "bg-indigo-600 dark:bg-indigo-500"
-          } else if (category === "ok" && index < 2) {
-            return "bg-indigo-600 dark:bg-indigo-500"
-          } else if (category === "bad" && index < 1) {
-            return "bg-indigo-600 dark:bg-indigo-500"
-          }
-          return "bg-gray-300 dark:bg-gray-800"
-        }
-
-        return (
-          <div className="flex gap-0.5">
-            <div className={`h-3.5 w-1 rounded-sm ${getBarClass(0)}`} />
-            <div className={`h-3.5 w-1 rounded-sm ${getBarClass(1)}`} />
-            <div className={`h-3.5 w-1 rounded-sm ${getBarClass(2)}`} />
-          </div>
-        )
-      }
-
-      return (
-        <div className="flex items-center gap-0.5">
-          <span className="w-6">{value}</span>
-          <Indicator number={value} />
-        </div>
-      )
-    },
-  }),
-  columnHelper.accessor("costs", {
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Costs" />
+      <DataTableColumnHeader column={column} title="Byggeår" />
     ),
     enableSorting: true,
     meta: {
       className: "text-right",
-      displayName: "Costs",
+      displayName: "Byggeår",
     },
     cell: ({ getValue }) => {
       return (
-        <span className="font-medium">{formatters.currency(getValue())}</span>
+        <span className="font-medium">{formatters.integer(getValue())}</span>
       )
     },
     filterFn: (row, columnId, filterValue: ConditionFilter) => {
@@ -176,24 +139,277 @@ export const columns = [
       }
     },
   }),
-  columnHelper.accessor("lastEdited", {
+  columnHelper.accessor("bta", {
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Last edited" />
+      <DataTableColumnHeader column={column} title="BTA" />
     ),
-    enableSorting: false,
+    enableSorting: true,
     meta: {
-      className: "tabular-nums",
-      displayName: "Last edited",
+      className: "text-right",
+      displayName: "BTA",
+    },
+    cell: ({ getValue }) => {
+      return <span className="font-medium">{formatters.sqm(getValue())}</span>
+    },
+    filterFn: (row, columnId, filterValue: ConditionFilter) => {
+      const value = row.getValue(columnId) as number
+      const [min, max] = filterValue.value as [number, number]
+
+      switch (filterValue.condition) {
+        case "is-equal-to":
+          return value == min
+        case "is-between":
+          return value >= min && value <= max
+        case "is-greater-than":
+          return value > min
+        case "is-less-than":
+          return value < min
+        default:
+          return true
+      }
+    },
+  }),
+  columnHelper.accessor("leieprisPerKvm", {
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Leiepris pr kvm" />
+    ),
+    enableSorting: true,
+    meta: {
+      className: "text-right",
+      displayName: "Leiepris pr kvm",
+    },
+    cell: ({ row }) => {
+      const value = row.getValue("leieprisPerKvm") as number
+      const leieprisVariant = leieprisVariants.find(
+        (item) => value >= item.min && value <= item.max,
+      )
+
+      if (!leieprisVariant) {
+        return (
+          <span className="font-medium">
+            {formatters.leieprisPerKvm(value)}{" "}
+            <span className="text-muted-foreground text-xs font-normal">
+              pr m²
+            </span>
+          </span>
+        )
+      }
+
+      return (
+        <div className="flex items-center justify-end gap-1">
+          <Badge
+            variant={leieprisVariant.variant as BadgeProps["variant"]}
+            size="table"
+          >
+            {formatters.leieprisPerKvm(value)}
+          </Badge>
+          <span className="text-muted-foreground text-xs font-normal">
+            pr m²
+          </span>
+        </div>
+      )
+    },
+    filterFn: (row, columnId, filterValue: ConditionFilter) => {
+      const value = row.getValue(columnId) as number
+      const [min, max] = filterValue.value as [number, number]
+
+      switch (filterValue.condition) {
+        case "is-equal-to":
+          return value == min
+        case "is-between":
+          return value >= min && value <= max
+        case "is-greater-than":
+          return value > min
+        case "is-less-than":
+          return value < min
+        default:
+          return true
+      }
+    },
+  }),
+  columnHelper.accessor("yield", {
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Yield" />
+    ),
+    enableSorting: true,
+    meta: {
+      className: "text-right",
+      displayName: "Yield",
+    },
+    cell: ({ row }) => {
+      const value = row.getValue("yield") as number
+      const yieldVariant = yieldVariants.find(
+        (item) => value >= item.min && value <= item.max,
+      )
+
+      if (!yieldVariant) {
+        return <span className="font-medium">{formatters.yield(value)}</span>
+      }
+
+      return (
+        <Badge
+          variant={yieldVariant.variant as BadgeProps["variant"]}
+          size="table"
+        >
+          {formatters.yield(value)}
+        </Badge>
+      )
+    },
+    filterFn: (row, columnId, filterValue: ConditionFilter) => {
+      const value = row.getValue(columnId) as number
+      const [min, max] = filterValue.value as [number, number]
+
+      switch (filterValue.condition) {
+        case "is-equal-to":
+          return value == min
+        case "is-between":
+          return value >= min && value <= max
+        case "is-greater-than":
+          return value > min
+        case "is-less-than":
+          return value < min
+        default:
+          return true
+      }
+    },
+  }),
+  columnHelper.accessor("inntekter", {
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Inntekter" />
+    ),
+    enableSorting: true,
+    meta: {
+      className: "text-right",
+      displayName: "Inntekter",
+    },
+    cell: ({ getValue }) => {
+      return (
+        <span className="font-medium">
+          {formatters.nokCurrency(getValue())}
+        </span>
+      )
+    },
+    filterFn: (row, columnId, filterValue: ConditionFilter) => {
+      const value = row.getValue(columnId) as number
+      const [min, max] = filterValue.value as [number, number]
+
+      switch (filterValue.condition) {
+        case "is-equal-to":
+          return value == min
+        case "is-between":
+          return value >= min && value <= max
+        case "is-greater-than":
+          return value > min
+        case "is-less-than":
+          return value < min
+        default:
+          return true
+      }
+    },
+  }),
+  columnHelper.accessor("kostnader", {
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Kostnader" />
+    ),
+    enableSorting: true,
+    meta: {
+      className: "text-right",
+      displayName: "Kostnader",
+    },
+    cell: ({ getValue }) => {
+      return (
+        <span className="font-medium">
+          {formatters.nokCurrency(getValue())}
+        </span>
+      )
+    },
+    filterFn: (row, columnId, filterValue: ConditionFilter) => {
+      const value = row.getValue(columnId) as number
+      const [min, max] = filterValue.value as [number, number]
+
+      switch (filterValue.condition) {
+        case "is-equal-to":
+          return value == min
+        case "is-between":
+          return value >= min && value <= max
+        case "is-greater-than":
+          return value > min
+        case "is-less-than":
+          return value < min
+        default:
+          return true
+      }
+    },
+  }),
+  columnHelper.accessor("antallLeietakere", {
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Leietakere" />
+    ),
+    enableSorting: true,
+    meta: {
+      className: "text-right",
+      displayName: "Leietakere",
+    },
+    cell: ({ row }) => {
+      const currentCount = row.getValue("antallLeietakere") as number
+      const previousCount = row.original.antallLeietakereTidligere
+
+      const trend = currentCount - previousCount
+
+      return (
+        <div className="flex items-center justify-end space-x-1">
+          <span className="font-medium">
+            {formatters.integer(currentCount)}
+          </span>
+          {trend > 0 && (
+            <span className="text-emerald-500">
+              <RiArrowUpSLine className="size-4" />
+            </span>
+          )}
+          {trend < 0 && (
+            <span className="text-red-500">
+              <RiArrowDownSLine className="size-4" />
+            </span>
+          )}
+          {trend === 0 && (
+            <span className="text-amber-500">
+              <RiEqualLine className="size-4" />
+            </span>
+          )}
+        </div>
+      )
+    },
+    filterFn: (row, columnId, filterValue: ConditionFilter) => {
+      const value = row.getValue(columnId) as number
+      const [min, max] = filterValue.value as [number, number]
+
+      switch (filterValue.condition) {
+        case "is-equal-to":
+          return value == min
+        case "is-between":
+          return value >= min && value <= max
+        case "is-greater-than":
+          return value > min
+        case "is-less-than":
+          return value < min
+        case "is-greater-than-or-equal":
+          // Special case for tenant stability filter
+          // Check if current tenants >= previous tenants (stable or growing)
+          const previousCount = row.original.antallLeietakereTidligere
+          return value >= previousCount
+        default:
+          return true
+      }
     },
   }),
   columnHelper.display({
     id: "edit",
-    header: "Edit",
+    header: "Rediger",
     enableSorting: false,
     enableHiding: false,
     meta: {
       className: "text-right",
-      displayName: "Edit",
+      displayName: "Rediger",
     },
     cell: ({ row }) => <DataTableRowActions row={row} />,
   }),

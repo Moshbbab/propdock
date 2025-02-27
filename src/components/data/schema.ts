@@ -1,10 +1,16 @@
 export type Usage = {
-  owner: string
-  status: string
-  costs: number
-  region: string
-  stability: number
-  lastEdited: string
+  eiendomsnavn: string
+  type: string
+  byggeaar: number
+  bta: number
+  yield: number
+  inntekter: number
+  kostnader: number
+  antallLeietakere: number
+  antallLeietakereTidligere: number
+  risikoScore: number
+  by: string
+  leieprisPerKvm: number
 }
 
 export type OverviewData = {

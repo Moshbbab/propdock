@@ -56,16 +56,16 @@ export function DataTablePagination<TData>({
   return (
     <div className="flex items-center justify-between">
       <div className="text-sm tabular-nums text-warm-grey-2 dark:text-warm-grey-1">
-        {table.getFilteredSelectedRowModel().rows.length} of {totalRows} row(s)
-        selected.
+        {table.getFilteredSelectedRowModel().rows.length} of {totalRows} rader
+        valgt.
       </div>
       <div className="flex items-center gap-x-6 lg:gap-x-8">
         <p className="hidden text-sm tabular-nums text-warm-grey-2 sm:block dark:text-warm-grey-1">
-          Showing{" "}
+          Viser{" "}
           <span className="font-medium text-warm-grey dark:text-warm-white">
             {firstRowIndex}-{lastRowIndex}
           </span>{" "}
-          of{" "}
+          av{" "}
           <span className="font-medium text-warm-grey dark:text-warm-white">
             {totalRows}
           </span>

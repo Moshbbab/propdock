@@ -234,4 +234,26 @@ export const formatters: { [key: string]: any } = {
       currency: currency,
     }).format(number),
   unit: (number: number) => `${usNumberformatter(number)}`,
+  nokCurrency: (number: number) => {
+    // Fixed format to ensure server/client consistency
+    const formatted = new Intl.NumberFormat("nb-NO", {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(number)
+    return `${formatted} kr`
+  },
+  sqm: (number: number) =>
+    `${new Intl.NumberFormat("nb-NO").format(number)} m²`,
+  yield: (number: number) =>
+    new Intl.NumberFormat("nb-NO", {
+      style: "percent",
+      minimumFractionDigits: 1,
+      maximumFractionDigits: 1,
+    }).format(number),
+  integer: (number: number) => new Intl.NumberFormat("nb-NO").format(number),
+  leieprisPerKvm: (number: number) =>
+    `${new Intl.NumberFormat("nb-NO", {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(number)} kr`,
 }
