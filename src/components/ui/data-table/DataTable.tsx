@@ -11,9 +11,12 @@ import {
 import { cx } from "@/lib/utils"
 import * as React from "react"
 
+import { Button } from "@/components/Button"
+import { RiScales3Line } from "@remixicon/react"
 import { DataTableBulkEditor } from "./DataTableBulkEditor"
 import { Filterbar } from "./DataTableFilterbar"
 import { DataTablePagination } from "./DataTablePagination"
+import { PropertyComparisonDrawer } from "./PropertyComparisonDrawer"
 
 import {
   ColumnDef,
@@ -33,6 +36,8 @@ interface DataTableProps<TData> {
 export function DataTable<TData>({ columns, data }: DataTableProps<TData>) {
   const pageSize = 20
   const [rowSelection, setRowSelection] = React.useState({})
+  const [comparisonOpen, setComparisonOpen] = React.useState(false)
+
   const table = useReactTable({
     data,
     columns,
@@ -53,10 +58,40 @@ export function DataTable<TData>({ columns, data }: DataTableProps<TData>) {
     getSortedRowModel: getSortedRowModel(),
   })
 
+  // Get selected rows for comparison
+  const selectedRows = React.useMemo(() => {
+    return Object.keys(rowSelection)
+      .map((key) => table.getRowModel().rows[parseInt(key)]?.original)
+      .filter(Boolean)
+  }, [rowSelection, table])
+
+  // Check if we have 2 or more properties selected for comparison
+  const canCompare = selectedRows.length >= 2
+
   return (
     <>
+      <PropertyComparisonDrawer
+        open={comparisonOpen}
+        onOpenChange={setComparisonOpen}
+        properties={selectedRows}
+      />
+
       <div className="space-y-3">
-        <Filterbar table={table} />
+        <div className="flex items-center justify-between">
+          <Filterbar table={table} />
+
+          {/* Comparison button */}
+          {canCompare && (
+            <Button
+              className="ml-4 flex items-center gap-2"
+              onClick={() => setComparisonOpen(true)}
+            >
+              <RiScales3Line className="size-4" />
+              <span>Sammenlign {selectedRows.length} eiendommer</span>
+            </Button>
+          )}
+        </div>
+
         <div className="relative overflow-hidden overflow-x-auto">
           <Table>
             <TableHead>
