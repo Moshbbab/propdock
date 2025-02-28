@@ -122,7 +122,18 @@ export function DataTable<TData>({ columns, data }: DataTableProps<TData>) {
                 table.getRowModel().rows.map((row) => (
                   <TableRow
                     key={row.id}
-                    onClick={() => row.toggleSelected(!row.getIsSelected())}
+                    onClick={(e) => {
+                      // Don't toggle row selection when clicking links or other interactive elements
+                      if (
+                        e.target instanceof HTMLElement &&
+                        (e.target.closest("a") ||
+                          e.target.closest("button") ||
+                          e.target.closest("input"))
+                      ) {
+                        return
+                      }
+                      row.toggleSelected(!row.getIsSelected())
+                    }}
                     className="group select-none hover:bg-light-blue-1 hover:dark:bg-light-blue/20"
                   >
                     {row.getVisibleCells().map((cell, index) => (

@@ -52,7 +52,7 @@ const summaryData = [
   {
     name: "Årsresultat",
     value: "44",
-    bgColor: "bg-warm-grey",
+    bgColor: "bg-light-blue",
   },
   {
     name: "Sum eiendeler",

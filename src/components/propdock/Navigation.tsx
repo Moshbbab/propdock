@@ -23,7 +23,7 @@ const navigationItems: NavigationItem[] = [
     description: "Markedsanalyse og områdeinformasjon",
   },
   {
-    href: "/propdock",
+    href: "/propdock/verdivurdering",
     label: "Verdivurdering",
     description: "Verdivurdering av eiendom",
   },

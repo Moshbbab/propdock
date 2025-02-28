@@ -13,11 +13,11 @@ interface NavigationItem {
 
 const navigationItems: NavigationItem[] = [
   {
-    href: "/propdock/table",
+    href: "/propdock/dashboard",
     label: "Alle eiendommer",
   },
   {
-    href: "/propdock/table/map",
+    href: "/propdock/dashboard/map",
     label: "Kart",
   },
 ]

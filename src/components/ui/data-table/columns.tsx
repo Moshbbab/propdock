@@ -12,6 +12,7 @@ import { Usage } from "@/components/data/schema"
 import { formatters } from "@/lib/utils"
 import { RiArrowDownSLine, RiArrowUpSLine, RiEqualLine } from "@remixicon/react"
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table"
+import Link from "next/link"
 import { DataTableColumnHeader } from "./DataTableColumnHeader"
 import { ConditionFilter } from "./DataTableFilter"
 import { DataTableRowActions } from "./DataTableRowActions"
@@ -53,6 +54,19 @@ export const columns = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Eiendomsnavn" />
     ),
+    cell: ({ row, getValue }) => {
+      const propertyName = getValue()
+      // We're using stopPropagation to prevent the row selection when clicking the link
+      return (
+        <Link
+          href={`/propdock/eiendom?name=${encodeURIComponent(String(propertyName))}`}
+          className="hover:underline"
+          onClick={(e) => e.stopPropagation()}
+        >
+          {propertyName}
+        </Link>
+      )
+    },
     enableSorting: true,
     enableHiding: false,
     meta: {
