@@ -35,6 +35,7 @@ interface PropertyMapOverviewProps {
   areas?: AreaPolygon[]
   centerCoordinates?: [number, number]
   zoom?: number
+  showPropertyBorders?: boolean
 }
 
 export function PropertyMapOverview({
@@ -42,6 +43,7 @@ export function PropertyMapOverview({
   areas = [],
   centerCoordinates = [14.365, 67.285], // Default to Bodø center
   zoom = 12,
+  showPropertyBorders = true,
 }: PropertyMapOverviewProps) {
   const mapContainer = useRef<HTMLDivElement>(null)
   const map = useRef<mapboxgl.Map | null>(null)
@@ -49,6 +51,7 @@ export function PropertyMapOverview({
   const [selectedProperty, setSelectedProperty] = useState<string | null>(null)
   const [selectedArea, setSelectedArea] = useState<string | null>(null)
   const [processedProperties, setProcessedProperties] = useState<Property[]>([])
+  const propertyLayersAdded = useRef<boolean>(false)
 
   // Process properties to ensure all have valid coordinates
   useEffect(() => {
@@ -86,24 +89,138 @@ export function PropertyMapOverview({
 
   // Initialize map
   useEffect(() => {
-    if (!mapContainer.current || map.current) return
+    if (mapContainer.current && !map.current) {
+      mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN || ""
 
-    map.current = new mapboxgl.Map({
-      container: mapContainer.current,
-      style: "mapbox://styles/mapbox/light-v11",
-      center: centerCoordinates,
-      zoom: zoom,
-    })
+      map.current = new mapboxgl.Map({
+        container: mapContainer.current,
+        style: "mapbox://styles/mapbox/streets-v12", // Changed from light-v11 to streets-v12 for a more colorful map
+        center: centerCoordinates,
+        zoom: zoom,
+      })
 
-    // Add navigation controls
-    map.current.addControl(new mapboxgl.NavigationControl(), "top-right")
+      // Add navigation controls
+      map.current.addControl(new mapboxgl.NavigationControl(), "top-right")
+    }
 
     return () => {
-      clearMarkers()
-      map.current?.remove()
-      map.current = null
+      if (!showPropertyBorders) {
+        clearMarkers()
+        map.current?.remove()
+        map.current = null
+      }
     }
   }, [centerCoordinates, zoom])
+
+  // Add property borders when map is loaded
+  useEffect(() => {
+    if (!map.current || !showPropertyBorders || propertyLayersAdded.current)
+      return
+
+    const mapInstance = map.current
+
+    mapInstance.on("load", () => {
+      if (!mapInstance || propertyLayersAdded.current) return
+
+      // Official Matrikkelkart WMS service URL
+      const wmsUrl = "https://wms.geonorge.no/skwms1/wms.matrikkelkart"
+
+      // Add source for property areas with clearer numbering - with very low opacity
+      mapInstance.addSource("matrikkel-teig", {
+        type: "raster",
+        tiles: [
+          `${wmsUrl}?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&transparent=true&width=256&height=256&layers=TeigMedGnrBnr&styles=&BGCOLOR=0xFFFFFF`,
+        ],
+        tileSize: 256,
+      })
+
+      // Add source for solid property boundary lines
+      mapInstance.addSource("matrikkel-eiendomsgrense", {
+        type: "raster",
+        tiles: [
+          `${wmsUrl}?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&transparent=true&width=256&height=256&layers=Eiendomsgrense&styles=&BGCOLOR=0xFFFFFF`,
+        ],
+        tileSize: 256,
+      })
+
+      // Add the property areas layer with minimal visibility
+      mapInstance.addLayer({
+        id: "matrikkel-teig-layer",
+        type: "raster",
+        source: "matrikkel-teig",
+        paint: {
+          "raster-opacity": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            12,
+            0, // Not visible at zoom level 12 or below
+            13,
+            0.15, // Very low opacity at zoom level 13
+            15,
+            0.2, // Still low opacity at zoom level 15 and above
+          ],
+          "raster-contrast": 0.1, // Reduced contrast for minimal visibility
+          "raster-saturation": 0, // No saturation
+        },
+      })
+
+      // Property boundary lines - green, with enhanced visibility
+      mapInstance.addLayer({
+        id: "matrikkel-eiendomsgrense-layer",
+        type: "raster",
+        source: "matrikkel-eiendomsgrense",
+        paint: {
+          "raster-opacity": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            10,
+            0, // Not visible at zoom level 10 or below
+            12,
+            0.8, // More visible at lower zoom levels
+            14,
+            1.0, // 100% opacity at zoom level 14 and above
+          ],
+          "raster-contrast": 0.4, // Higher contrast to make lines more defined
+          "raster-saturation": 0.5, // Higher saturation for more visible green lines
+          "raster-hue-rotate": 115, // Shift colors toward green (in degrees)
+        },
+      })
+
+      propertyLayersAdded.current = true
+    })
+
+    // Clean up
+    return () => {
+      if (mapInstance && mapInstance.loaded()) {
+        if (propertyLayersAdded.current) {
+          // Remove property layers and sources if they were added
+          if (mapInstance.getLayer("matrikkel-teig-layer")) {
+            mapInstance.removeLayer("matrikkel-teig-layer")
+          }
+          if (mapInstance.getLayer("matrikkel-eiendomsgrense-layer")) {
+            mapInstance.removeLayer("matrikkel-eiendomsgrense-layer")
+          }
+
+          if (mapInstance.getSource("matrikkel-teig")) {
+            mapInstance.removeSource("matrikkel-teig")
+          }
+          if (mapInstance.getSource("matrikkel-eiendomsgrense")) {
+            mapInstance.removeSource("matrikkel-eiendomsgrense")
+          }
+
+          // Remove the legend if it exists
+          const legendElement = document.getElementById(
+            "property-boundary-info",
+          )
+          if (legendElement) {
+            legendElement.remove()
+          }
+        }
+      }
+    }
+  }, [map.current, showPropertyBorders])
 
   // Add markers when properties change or map is initialized
   useEffect(() => {
