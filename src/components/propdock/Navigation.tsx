@@ -33,6 +33,16 @@ const navigationItems: NavigationItem[] = [
     description: "Investeringsscenarioer og simuleringer",
   },
   {
+    href: "/propdock/finansiering",
+    label: "Finansiering",
+    description: "Finansieringsverktøy og gjeldstrukturering",
+  },
+  {
+    href: "/propdock/exit-strategi",
+    label: "Exit Strategi",
+    description: "Exit strategi og realiseringsanalyse",
+  },
+  {
     href: "/propdock/regnskap",
     label: "Regnskap",
     description: "Oversikt over inntekter og kostnader",
