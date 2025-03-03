@@ -17,7 +17,7 @@ export default function SelskapPage() {
                   <div className="flex items-center justify-between">
                     <div>
                       <h2 className="text-xl font-semibold text-warm-grey dark:text-warm-white">
-                        ME WITHOUT THE BOYS AS
+                        Codebase AS
                       </h2>
                       <h3 className="mt-1 text-sm text-warm-grey-2 dark:text-warm-grey-1">
                         Grunndata
@@ -56,12 +56,11 @@ export default function SelskapPage() {
                   <div className="mt-4 space-y-4">
                     <div className="rounded-lg border border-warm-grey-2/20 p-4 dark:border-warm-grey-1/20">
                       <p className="text-sm text-warm-grey-2 dark:text-warm-grey-1">
-                        ME WITHOUT THE BOYS AS er et aksjeselskap etablert i
-                        2017, og har ingen ansatt. Enheten er registrert i
-                        enhetsregisteret med organisasjonsnummer 919 415 754, og
-                        holder til i Skipperveien 11A, 8070 bodø. Selskapet
-                        driver med konsulentvirksomhet tilknyttet
-                        informasjonsteknologi.
+                        Codebase AS er et aksjeselskap etablert i 2017, og har
+                        ingen ansatt. Enheten er registrert i enhetsregisteret
+                        med organisasjonsnummer 919 415 754, og holder til i
+                        Skipperveien 11A, 8070 bodø. Selskapet driver med
+                        konsulentvirksomhet tilknyttet informasjonsteknologi.
                       </p>
                     </div>
                     <div>
@@ -183,7 +182,7 @@ export default function SelskapPage() {
                     <div className="flex items-center gap-4">
                       <div className="flex-1">
                         <p className="font-medium text-warm-grey dark:text-warm-white">
-                          Ola Nordmann
+                          Christer Hagen
                         </p>
                         <p className="mt-1 text-sm text-warm-grey-2 dark:text-warm-grey-1">
                           Tiltrådt: 01.01.2020

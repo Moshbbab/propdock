@@ -1,7 +1,7 @@
 "use client"
 
-import { AreaChart } from "@/components/AreaChart"
 import { Card } from "@/components/Card"
+import { LineChart } from "@/components/LineChart"
 import { Slider } from "@/components/Slider"
 import { RiScales3Line } from "@remixicon/react"
 import { useMemo, useState } from "react"
@@ -276,7 +276,7 @@ export function FixedVsVariableRateChart() {
 
         <div className="space-y-4">
           <div className="h-80 w-full">
-            <AreaChart
+            <LineChart
               data={comparisonData}
               index="year"
               categories={[
@@ -285,8 +285,8 @@ export function FixedVsVariableRateChart() {
                 "Høy flytende",
                 "Fast rente",
               ]}
-              colors={["emerald", "light-blue", "red", "warm-grey"]}
-              valueFormatter={(value) => formatCurrency(value)}
+              colors={["emerald", "light-blue", "red", "yellow"]}
+              valueFormatter={(value: number) => formatCurrency(value)}
               yAxisWidth={70}
             />
           </div>

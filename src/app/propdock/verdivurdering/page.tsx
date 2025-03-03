@@ -5,8 +5,6 @@ import { Label } from "@/components/Label"
 import { DcfChart } from "@/components/propdock/DcfChart"
 import { PropdockNavigation } from "@/components/propdock/Navigation"
 import { ProgressCircle } from "@/components/propdock/ProgressCircle"
-import { PropertyMapOverview } from "@/components/propdock/PropertyMapOverview"
-import { sampleProperties } from "@/components/propdock/sampleProperties"
 import { YieldLineChart } from "@/components/propdock/YieldLineChart"
 import { Slider } from "@/components/Slider"
 import { Divider } from "@/components/ui/Divider"
@@ -1000,12 +998,6 @@ export default function Eiendomsvurdering() {
           </div>
         </div>
       </div>
-
-      <Divider className="my-12" />
-
-      <section className="mt-12">
-        <PropertyMapOverview properties={sampleProperties} />
-      </section>
     </main>
   )
 }

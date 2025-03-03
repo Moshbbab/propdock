@@ -4,7 +4,6 @@ import { FixedVsVariableRateChart } from "@/components/propdock/exit-strategi/Fi
 import { LoanAmortizationChart } from "@/components/propdock/exit-strategi/LoanAmortizationChart"
 import DebtStructuring from "@/components/propdock/finansiering/DebtStructuring"
 import { PropdockNavigation } from "@/components/propdock/Navigation"
-
 export default function FinansieringPage() {
   return (
     <main className="container mx-auto px-4 sm:px-6">

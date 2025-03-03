@@ -23,26 +23,6 @@ const navigationItems: NavigationItem[] = [
     description: "Markedsanalyse og områdeinformasjon",
   },
   {
-    href: "/propdock/verdivurdering",
-    label: "Verdivurdering",
-    description: "Verdivurdering av eiendom",
-  },
-  {
-    href: "/propdock/simulering",
-    label: "Simulering",
-    description: "Investeringsscenarioer og simuleringer",
-  },
-  {
-    href: "/propdock/finansiering",
-    label: "Finansiering",
-    description: "Finansieringsverktøy og gjeldstrukturering",
-  },
-  {
-    href: "/propdock/exit-strategi",
-    label: "Exit Strategi",
-    description: "Exit strategi og realiseringsanalyse",
-  },
-  {
     href: "/propdock/regnskap",
     label: "Regnskap",
     description: "Oversikt over inntekter og kostnader",
@@ -56,6 +36,26 @@ const navigationItems: NavigationItem[] = [
     href: "/propdock/selskap",
     label: "Selskap",
     description: "Selskapsinformasjon og roller",
+  },
+  {
+    href: "/propdock/verdivurdering",
+    label: "Verdivurdering",
+    description: "Verdivurdering av eiendom",
+  },
+  {
+    href: "/propdock/finansiering",
+    label: "Finansiering",
+    description: "Finansieringsverktøy og gjeldstrukturering",
+  },
+  {
+    href: "/propdock/simulering",
+    label: "Simulering",
+    description: "Investeringsscenarioer og simuleringer",
+  },
+  {
+    href: "/propdock/exit-strategi",
+    label: "Exit Strategi",
+    description: "Exit strategi og realiseringsanalyse",
   },
 ]
 

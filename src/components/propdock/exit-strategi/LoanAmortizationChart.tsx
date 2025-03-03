@@ -1,6 +1,5 @@
 "use client"
 
-import { AreaChart } from "@/components/AreaChart"
 import { Card } from "@/components/Card"
 import { LineChart } from "@/components/LineChart"
 import { Slider } from "@/components/Slider"
@@ -196,7 +195,7 @@ export function LoanAmortizationChart() {
         </div>
 
         <div className="space-y-4">
-          <div className="h-80 w-full">
+          {/* <div className="h-80 w-full">
             <AreaChart
               type="stacked"
               data={amortizationData}
@@ -206,7 +205,7 @@ export function LoanAmortizationChart() {
               valueFormatter={(value) => formatCurrency(value)}
               yAxisWidth={65}
             />
-          </div>
+          </div> */}
 
           <div className="h-64 w-full">
             <LineChart
