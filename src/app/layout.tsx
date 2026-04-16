@@ -1,3 +1,4 @@
+import { LayoutChrome } from "@/components/layout-chrome"
 import Footer from "@/components/ui/Footer"
 import { Navigation } from "@/components/ui/Navbar"
 import { constructMetadata } from "@/lib/utils"
@@ -32,9 +33,13 @@ export default function RootLayout({
           defaultTheme="dark"
           disableTransitionOnChange
         >
-          <Navigation />
+          <LayoutChrome>
+            <Navigation />
+          </LayoutChrome>
           {children}
-          <Footer />
+          <LayoutChrome>
+            <Footer />
+          </LayoutChrome>
         </ThemeProvider>
       </body>
     </html>

@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button"
 import { cx } from "@/lib/utils"
 import { RiTwitterXLine } from "@remixicon/react"
 import { AnimatePresence, motion } from "framer-motion"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useHotkeys } from "react-hotkeys-hook"
 
 type Props = {
@@ -61,6 +61,24 @@ const popupCenter = ({ url, title, w, h }: PopupCenterProps) => {
 export function CarouselToolbar({ views }: Props) {
   const api = useCarousel()
   const [showShareModal, setShowShareModal] = useState(false)
+  const [current, setCurrent] = useState(1)
+  const [total, setTotal] = useState(0)
+
+  useEffect(() => {
+    if (!api?.api) return
+    const embla = api.api
+    const update = () => {
+      setCurrent(embla.selectedScrollSnap() + 1)
+      setTotal(embla.scrollSnapList().length)
+    }
+    update()
+    embla.on("select", update)
+    embla.on("reInit", update)
+    return () => {
+      embla.off("select", update)
+      embla.off("reInit", update)
+    }
+  }, [api?.api])
 
   useHotkeys("arrowRight", () => api.scrollNext(), [api])
   useHotkeys("arrowLeft", () => api.scrollPrev(), [api])
@@ -81,7 +99,7 @@ export function CarouselToolbar({ views }: Props) {
       <div className="fixed bottom-5 left-0 flex w-full justify-center">
         <AnimatePresence>
           <motion.div animate={{ y: views > 0 ? 0 : 100 }} initial={{ y: 100 }}>
-            <div className="flex h-10 items-center space-x-4 border border-[#2C2C2C] bg-[#1A1A1A]/80 px-4 py-2 backdrop-blur-lg backdrop-filter">
+            <div className="flex h-10 items-center space-x-4 rounded-md border border-[#2C2C2C] bg-[#1A1A1A] px-4 py-2 shadow-2xl shadow-black/40">
               <Tooltip content="Views" side="top" sideOffset={25}>
                 <div className="border-border flex items-center space-x-2 border-r-[1px] pr-4 text-[#878787]">
                   <Icons.Visibility size={18} />
@@ -94,6 +112,17 @@ export function CarouselToolbar({ views }: Props) {
                   </span>
                 </div>
               </Tooltip>
+
+              {total > 0 && (
+                <Tooltip content="Slide" side="top" sideOffset={25}>
+                  <div className="border-border flex items-center space-x-1 border-r-[1px] pr-4 text-[#878787] tabular-nums">
+                    <span className="text-sm font-medium text-white">
+                      {current}
+                    </span>
+                    <span className="text-sm">/ {total}</span>
+                  </div>
+                </Tooltip>
+              )}
 
               <Tooltip
                 content="Book a meeting"
