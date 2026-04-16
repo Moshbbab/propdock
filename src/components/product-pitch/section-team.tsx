@@ -1,4 +1,6 @@
 
+import Image from "next/image"
+
 type TeamMember = {
   name: string
   role: string
@@ -6,9 +8,12 @@ type TeamMember = {
   email: string
   phone: string
   initials: string
+  image?: string
   featured?: boolean
 }
 
+// Drop square headshots into public/team/ then set the image field below
+// (e.g. image: "/team/christer.jpg"). Falls back to initials avatar if omitted.
 const team: TeamMember[] = [
   {
     name: "Christer Hagen",
@@ -47,13 +52,35 @@ const team: TeamMember[] = [
 
 function Avatar({
   initials,
+  image,
+  name,
   size = "md",
 }: {
   initials: string
+  image?: string
+  name: string
   size?: "md" | "lg"
 }) {
   const sizeClass =
     size === "lg" ? "h-20 w-20 text-2xl" : "h-14 w-14 text-lg"
+  const dimensions = size === "lg" ? 80 : 56
+
+  if (image) {
+    return (
+      <div
+        className={`relative ${sizeClass} flex-shrink-0 overflow-hidden rounded-full ring-1 ring-warm-white/10`}
+      >
+        <Image
+          src={image}
+          alt={name}
+          width={dimensions}
+          height={dimensions}
+          className="h-full w-full object-cover"
+        />
+      </div>
+    )
+  }
+
   return (
     <div
       className={`flex ${sizeClass} flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-light-blue/40 to-warm-grey-2/30 font-medium text-warm-white ring-1 ring-warm-white/10`}
@@ -71,7 +98,7 @@ export function SectionTeam() {
       <div className="container relative mx-auto px-4 md:px-8">
         <div className="mb-16 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <span className="text-sm font-medium text-warm-grey-2">08</span>
+            <span className="text-sm font-medium text-warm-grey-2">10</span>
             <h2 className="text-xl font-medium tracking-tight">Teamet</h2>
           </div>
           <a href="https://www.advantiestate.no" target="_blank" rel="noopener noreferrer" className="text-warm-grey-2 transition-colors hover:text-warm-grey-1">advantiestate.no</a>
@@ -90,7 +117,7 @@ export function SectionTeam() {
         <div className="grid gap-6 lg:grid-cols-5">
           <div className="rounded-2xl bg-warm-grey-2/5 p-8 dark:bg-warm-grey-2/10 lg:col-span-2">
             <div className="flex items-start gap-4">
-              <Avatar initials={lead.initials} size="lg" />
+              <Avatar initials={lead.initials} image={lead.image} name={lead.name} size="lg" />
               <div className="space-y-1">
                 <p className="text-xs font-medium uppercase tracking-widest text-light-blue">
                   Din kontaktperson
@@ -149,7 +176,7 @@ export function SectionTeam() {
                 key={member.role}
                 className="flex items-start gap-4 rounded-2xl bg-warm-grey-2/5 p-6 dark:bg-warm-grey-2/10"
               >
-                <Avatar initials={member.initials} />
+                <Avatar initials={member.initials} image={member.image} name={member.name} />
                 <div className="flex-1 space-y-1">
                   <h4 className="text-lg font-medium">{member.name}</h4>
                   <p className="text-xs uppercase tracking-widest text-warm-grey-2">

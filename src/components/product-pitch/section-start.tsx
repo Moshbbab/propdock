@@ -1,8 +1,13 @@
+import type { PitchContext } from "./types"
+
 type Props = {
-  clientName: string
+  ctx: PitchContext
 }
 
-export function SectionStart({ clientName }: Props) {
+export function SectionStart({ ctx }: Props) {
+  const { clientName, presenter, presenterRole, dato } = ctx
+  const hasMeetingMeta = Boolean(presenter || dato)
+
   return (
     <section className="relative flex min-h-screen w-full flex-col bg-warm-grey pb-40 pt-12 text-warm-white md:pb-48 md:pt-16">
       <div className="container relative mx-auto px-4 md:px-8">
@@ -29,6 +34,39 @@ export function SectionStart({ clientName }: Props) {
             Verdivurdering, forvaltning, transaksjon og markedsinnsikt — samlet
             hos én partner.
           </p>
+
+          {hasMeetingMeta && (
+            <div className="mt-12 grid w-full max-w-xl gap-px overflow-hidden rounded-2xl bg-warm-grey-2/20 text-sm sm:grid-cols-3">
+              <div className="bg-warm-grey px-4 py-3">
+                <p className="text-xs uppercase tracking-widest text-warm-grey-2">
+                  Forberedt for
+                </p>
+                <p className="mt-1 font-medium text-warm-white">{clientName}</p>
+              </div>
+              {presenter && (
+                <div className="bg-warm-grey px-4 py-3">
+                  <p className="text-xs uppercase tracking-widest text-warm-grey-2">
+                    Av
+                  </p>
+                  <p className="mt-1 font-medium text-warm-white">
+                    {presenter}
+                  </p>
+                  {presenterRole && (
+                    <p className="text-xs text-warm-grey-1">{presenterRole}</p>
+                  )}
+                </div>
+              )}
+              {dato && (
+                <div className="bg-warm-grey px-4 py-3">
+                  <p className="text-xs uppercase tracking-widest text-warm-grey-2">
+                    Dato
+                  </p>
+                  <p className="mt-1 font-medium text-warm-white">{dato}</p>
+                </div>
+              )}
+            </div>
+          )}
+
           <div className="mt-12 flex items-center gap-3 text-sm text-warm-grey-2">
             <span>Advanti Estate</span>
             <span>•</span>

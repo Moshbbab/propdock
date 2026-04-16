@@ -1,0 +1,7 @@
+# Team photos for the product pitch deck
+
+Drop square headshots here (1024x1024 recommended, neutral background, .jpg).
+Then set the matching `image` field on each TeamMember in
+`src/components/product-pitch/section-team.tsx` (e.g. `image: "/team/christer.jpg"`).
+
+Avatar falls back to initials if `image` is omitted.

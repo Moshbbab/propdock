@@ -47,7 +47,7 @@ export function SectionPricing() {
       <div className="container relative mx-auto px-4 md:px-8">
         <div className="mb-16 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <span className="text-sm font-medium text-warm-grey-2">09</span>
+            <span className="text-sm font-medium text-warm-grey-2">11</span>
             <h2 className="text-xl font-medium tracking-tight">Pris & Pakker</h2>
           </div>
           <a href="https://www.advantiestate.no" target="_blank" rel="noopener noreferrer" className="text-warm-grey-2 transition-colors hover:text-warm-grey-1">advantiestate.no</a>

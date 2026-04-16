@@ -5,7 +5,7 @@ export function SectionVerdivurdering() {
       <div className="container relative mx-auto px-4 md:px-8">
         <div className="mb-16 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <span className="text-sm font-medium text-warm-grey-2">07</span>
+            <span className="text-sm font-medium text-warm-grey-2">08</span>
             <h2 className="text-xl font-medium tracking-tight">
               Verdivurdering & Innsikt
             </h2>

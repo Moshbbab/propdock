@@ -9,7 +9,9 @@ import {
 import { CarouselToolbar } from "@/components/investor/carousel-toolbar"
 import { useEffect, useState } from "react"
 import { SectionBook } from "./section-book"
+import { SectionCaseStudy } from "./section-case-study"
 import { SectionForvaltning } from "./section-forvaltning"
+import { SectionMap } from "./section-map"
 import { SectionMarkedspuls } from "./section-markedspuls"
 import { SectionPricing } from "./section-pricing"
 import { SectionProblem } from "./section-problem"
@@ -18,12 +20,13 @@ import { SectionStart } from "./section-start"
 import { SectionTeam } from "./section-team"
 import { SectionTransaksjon } from "./section-transaksjon"
 import { SectionVerdivurdering } from "./section-verdivurdering"
+import type { PitchContext } from "./types"
 
 type Props = {
-  clientName: string
+  ctx: PitchContext
 }
 
-export function ProductPitchCarousel({ clientName }: Props) {
+export function ProductPitchCarousel({ ctx }: Props) {
   const [api, setApi] = useState<CarouselApi>()
   const [current, setCurrent] = useState(0)
 
@@ -39,16 +42,19 @@ export function ProductPitchCarousel({ clientName }: Props) {
     <Carousel className="relative min-h-full w-full" setApi={setApi}>
       <CarouselContent>
         <CarouselItem>
-          <SectionStart clientName={clientName} />
+          <SectionStart ctx={ctx} />
         </CarouselItem>
         <CarouselItem>
-          <SectionProblem clientName={clientName} />
+          <SectionProblem ctx={ctx} />
         </CarouselItem>
         <CarouselItem>
-          <SectionSolution clientName={clientName} />
+          <SectionSolution clientName={ctx.clientName} />
         </CarouselItem>
         <CarouselItem>
           <SectionMarkedspuls />
+        </CarouselItem>
+        <CarouselItem>
+          <SectionMap />
         </CarouselItem>
         <CarouselItem>
           <SectionForvaltning />
@@ -60,13 +66,16 @@ export function ProductPitchCarousel({ clientName }: Props) {
           <SectionVerdivurdering />
         </CarouselItem>
         <CarouselItem>
+          <SectionCaseStudy />
+        </CarouselItem>
+        <CarouselItem>
           <SectionTeam />
         </CarouselItem>
         <CarouselItem>
           <SectionPricing />
         </CarouselItem>
         <CarouselItem>
-          <SectionBook clientName={clientName} />
+          <SectionBook clientName={ctx.clientName} />
         </CarouselItem>
       </CarouselContent>
 

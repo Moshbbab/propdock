@@ -6,7 +6,7 @@ export function SectionTransaksjon() {
       <div className="container relative mx-auto px-4 md:px-8">
         <div className="mb-16 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <span className="text-sm font-medium text-warm-grey-2">06</span>
+            <span className="text-sm font-medium text-warm-grey-2">07</span>
             <h2 className="text-xl font-medium tracking-tight">
               Transaksjon & Rådgivning
             </h2>

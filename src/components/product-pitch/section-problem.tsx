@@ -1,9 +1,11 @@
+import type { PitchContext } from "./types"
 
 type Props = {
-  clientName: string
+  ctx: PitchContext
 }
 
-export function SectionProblem({ clientName }: Props) {
+export function SectionProblem({ ctx }: Props) {
+  const { clientName, portefolje } = ctx
   return (
     <section className="relative flex min-h-screen w-full flex-col justify-center bg-warm-grey pb-40 pt-24 text-warm-white md:pb-48 md:pt-32">
       <div className="container relative mx-auto px-4 md:px-8">
@@ -12,10 +14,26 @@ export function SectionProblem({ clientName }: Props) {
             <span className="text-sm font-medium text-warm-grey-2">02</span>
             <h2 className="text-xl font-medium tracking-tight">Utfordringen</h2>
           </div>
-          <a href="https://www.advantiestate.no" target="_blank" rel="noopener noreferrer" className="text-warm-grey-2 transition-colors hover:text-warm-grey-1">advantiestate.no</a>
+          <a
+            href="https://www.advantiestate.no"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-warm-grey-2 transition-colors hover:text-warm-grey-1"
+          >
+            advantiestate.no
+          </a>
         </div>
 
-        <div className="space-y-16">
+        <div className="space-y-12">
+          {portefolje && (
+            <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 rounded-2xl border border-light-blue/30 bg-light-blue/10 px-6 py-4">
+              <span className="text-xs font-medium uppercase tracking-widest text-light-blue">
+                Din portefølje
+              </span>
+              <span className="text-base text-warm-white">{portefolje}</span>
+            </div>
+          )}
+
           <div className="grid gap-12 md:grid-cols-2">
             <div className="space-y-6">
               <h3 className="text-3xl font-medium leading-tight md:text-4xl">
@@ -56,7 +74,6 @@ export function SectionProblem({ clientName }: Props) {
               </div>
             </div>
           </div>
-
         </div>
       </div>
     </section>

@@ -4,6 +4,7 @@ import { Navigation } from "@/components/ui/Navbar"
 import { constructMetadata } from "@/lib/utils"
 import { ThemeProvider } from "next-themes"
 import { Inter } from "next/font/google"
+import "leaflet/dist/leaflet.css"
 import "./globals.css"
 
 const inter = Inter({
