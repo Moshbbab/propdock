@@ -8,7 +8,7 @@ import { Tooltip } from "@/components/Tooltip"
 import { Button } from "@/components/ui/button"
 import { cx } from "@/lib/utils"
 import { RiTwitterXLine } from "@remixicon/react"
-import { AnimatePresence, motion } from "framer-motion"
+import { AnimatePresence, motion } from "motion/react"
 import { useEffect, useState } from "react"
 import { useHotkeys } from "react-hotkeys-hook"
 

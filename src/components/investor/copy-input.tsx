@@ -2,7 +2,7 @@
 
 import { Icons } from "@/components/investor/icons"
 import { cx } from "@/lib/utils"
-import { motion } from "framer-motion"
+import { motion } from "motion/react"
 import { useState } from "react"
 
 type Props = {

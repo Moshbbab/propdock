@@ -17,18 +17,13 @@ export const metadata = constructMetadata({
 export default function Home() {
   return (
     <main className="flex flex-col overflow-hidden">
-      <div className="pt-56">
-        <Hero2 />
-      </div>
+      <Hero2 />
       <LogoCloud />
-      <FeatureDivider className="-mb-24 mt-24 max-w-6xl" />
+      <FeatureDivider />
       <AnalycitsDashboard />
-
       <CtaMiddle />
-      <FeatureDivider className="-mb-24 mt-24 max-w-6xl" />
-
+      <FeatureDivider />
       <Features2 />
-
       <Cta />
     </main>
   )
