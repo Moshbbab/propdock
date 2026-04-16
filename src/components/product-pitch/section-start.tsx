@@ -9,7 +9,7 @@ export function SectionStart({ ctx }: Props) {
   const hasMeetingMeta = Boolean(presenter || dato)
 
   return (
-    <section className="relative flex min-h-screen w-full flex-col bg-warm-grey pb-40 pt-12 text-warm-white md:pb-48 md:pt-16">
+    <section className="relative flex min-h-screen w-full flex-col bg-warm-grey pb-56 pt-12 text-warm-white md:pb-48 md:pt-16">
       <div className="container relative mx-auto px-4 md:px-8">
         <div className="mb-12 flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -25,9 +25,9 @@ export function SectionStart({ ctx }: Props) {
           <p className="mb-6 text-sm font-medium uppercase tracking-widest text-warm-grey-2">
             Til {clientName}
           </p>
-          <h1 className="text-center text-5xl font-medium tracking-tight text-warm-white md:text-6xl lg:text-7xl">
+          <h1 className="text-balance break-words text-center text-4xl font-medium leading-tight tracking-tight text-warm-white sm:text-5xl md:text-6xl lg:text-7xl">
             Din komplette partner
-            <br />
+            <br className="hidden sm:inline" />{" "}
             for næringseiendom
           </h1>
           <p className="mt-6 max-w-xl text-center text-xl text-warm-grey-1">

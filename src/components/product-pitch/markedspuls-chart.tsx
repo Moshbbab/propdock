@@ -45,7 +45,7 @@ function CustomTooltip({ active, payload, label }: any) {
 
 export function MarkedspulsChart() {
   return (
-    <div className="rounded-2xl bg-warm-grey-2/10 p-6">
+    <div className="min-w-0 overflow-hidden rounded-2xl bg-warm-grey-2/10 p-4 md:p-6">
       <div className="mb-4 flex items-baseline justify-between">
         <div>
           <p className="text-xs font-medium uppercase tracking-widest text-warm-grey-2">

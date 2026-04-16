@@ -7,7 +7,7 @@ type Props = {
 export function SectionProblem({ ctx }: Props) {
   const { clientName, portefolje } = ctx
   return (
-    <section className="relative flex min-h-screen w-full flex-col justify-center bg-warm-grey pb-40 pt-24 text-warm-white md:pb-48 md:pt-32">
+    <section className="relative flex min-h-screen w-full flex-col justify-center bg-warm-grey pb-56 pt-24 text-warm-white md:pb-48 md:pt-32">
       <div className="container relative mx-auto px-4 md:px-8">
         <div className="mb-16 flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -18,7 +18,7 @@ export function SectionProblem({ ctx }: Props) {
             href="https://www.advantiestate.no"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-warm-grey-2 transition-colors hover:text-warm-grey-1"
+            className="hidden text-warm-grey-2 transition-colors hover:text-warm-grey-1 sm:inline"
           >
             advantiestate.no
           </a>

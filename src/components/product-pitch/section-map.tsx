@@ -7,7 +7,7 @@ const YieldMap = dynamic(
 
 export function SectionMap() {
   return (
-    <section className="relative flex min-h-screen w-full flex-col justify-center bg-warm-white pb-40 pt-24 text-warm-grey md:pb-48 md:pt-32 dark:bg-warm-grey dark:text-warm-white">
+    <section className="relative flex min-h-screen w-full flex-col justify-center bg-warm-white pb-56 pt-24 text-warm-grey md:pb-48 md:pt-32 dark:bg-warm-grey dark:text-warm-white">
       <div className="container relative mx-auto px-4 md:px-8">
         <div className="mb-12 flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -18,7 +18,7 @@ export function SectionMap() {
             href="https://www.advantiestate.no"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-warm-grey-2 transition-colors hover:text-warm-grey-1"
+            className="hidden text-warm-grey-2 transition-colors hover:text-warm-grey-1 sm:inline"
           >
             advantiestate.no
           </a>

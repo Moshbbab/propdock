@@ -22,7 +22,7 @@ const beforeAfter = [
 
 export function SectionCaseStudy() {
   return (
-    <section className="relative flex min-h-screen w-full flex-col justify-center bg-warm-grey pb-40 pt-24 text-warm-white md:pb-48 md:pt-32">
+    <section className="relative flex min-h-screen w-full flex-col justify-center bg-warm-grey pb-56 pt-24 text-warm-white md:pb-48 md:pt-32">
       <div className="container relative mx-auto px-4 md:px-8">
         <div className="mb-16 flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -33,7 +33,7 @@ export function SectionCaseStudy() {
             href="https://www.advantiestate.no"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-warm-grey-2 transition-colors hover:text-warm-grey-1"
+            className="hidden text-warm-grey-2 transition-colors hover:text-warm-grey-1 sm:inline"
           >
             advantiestate.no
           </a>
@@ -68,7 +68,33 @@ export function SectionCaseStudy() {
             <h4 className="text-sm font-medium uppercase tracking-widest text-warm-grey-2">
               Før vs etter — 12 mnd
             </h4>
-            <div className="overflow-hidden rounded-2xl border border-warm-grey-2/20">
+            {/* Mobile: card stack */}
+            <div className="grid gap-3 sm:hidden">
+              {beforeAfter.map((row) => (
+                <div
+                  key={row.metric}
+                  className="rounded-2xl border border-warm-grey-2/20 bg-warm-grey-2/5 p-4"
+                >
+                  <p className="text-xs font-medium uppercase tracking-widest text-warm-grey-2">
+                    {row.metric}
+                  </p>
+                  <div className="mt-2 flex items-baseline justify-between gap-3">
+                    <span className="text-sm text-warm-grey-2 line-through">
+                      {row.before}
+                    </span>
+                    <span className="text-2xl font-medium text-warm-white">
+                      {row.after}
+                    </span>
+                    <span className="text-sm font-medium text-light-blue">
+                      {row.delta}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Tablet+: table */}
+            <div className="hidden overflow-hidden rounded-2xl border border-warm-grey-2/20 sm:block">
               <div className="grid grid-cols-4 bg-warm-grey-2/10 px-6 py-3 text-xs font-medium uppercase tracking-widest text-warm-grey-2">
                 <span>Nøkkeltall</span>
                 <span className="text-right">Før</span>
