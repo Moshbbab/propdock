@@ -69,7 +69,7 @@ export function ProductPitchCarousel({ ctx }: Props) {
           <SectionCaseStudy />
         </CarouselItem>
         <CarouselItem>
-          <SectionTeam />
+          <SectionTeam ctx={ctx} />
         </CarouselItem>
         <CarouselItem>
           <SectionPricing />

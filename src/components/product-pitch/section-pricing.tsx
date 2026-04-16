@@ -1,9 +1,20 @@
 
-const packages = [
+type Pkg = {
+  name: string
+  tagline: string
+  priceLead: string
+  priceAmount?: string
+  period: string
+  features: string[]
+  highlighted: boolean
+}
+
+const packages: Pkg[] = [
   {
     name: "Markedspuls",
     tagline: "Innsikt for beslutningstakere",
-    price: "150.000",
+    priceLead: "Fra",
+    priceAmount: "150.000",
     period: "NOK / år",
     features: [
       "Markedspuls — kvartalsvise rapporter",
@@ -15,7 +26,8 @@ const packages = [
   {
     name: "Partner",
     tagline: "Full eiendomspartner",
-    price: "Fra 350.000",
+    priceLead: "Fra",
+    priceAmount: "350.000",
     period: "NOK / år",
     features: [
       "Alt i Markedspuls",
@@ -29,7 +41,7 @@ const packages = [
   {
     name: "Transaksjon",
     tagline: "Ved kjøp eller salg",
-    price: "Suksesshonorar",
+    priceLead: "Suksesshonorar",
     period: "per oppdrag",
     features: [
       "Transaksjonsoppdrag",
@@ -82,9 +94,31 @@ export function SectionPricing() {
                 <h4 className="text-xl font-medium">{pkg.name}</h4>
                 <p className="text-sm text-warm-grey-2">{pkg.tagline}</p>
               </div>
-              <div className="my-6 flex items-baseline gap-2">
-                <span className="text-4xl font-medium">{pkg.price}</span>
-                <span className="text-sm text-warm-grey-1">{pkg.period}</span>
+              <div className="my-6 min-h-[72px]">
+                {pkg.priceAmount ? (
+                  <>
+                    <p className="text-xs uppercase tracking-widest text-warm-grey-2">
+                      {pkg.priceLead}
+                    </p>
+                    <div className="mt-1 flex items-baseline gap-2">
+                      <span className="text-4xl font-medium tracking-tight">
+                        {pkg.priceAmount}
+                      </span>
+                      <span className="text-sm text-warm-grey-1">
+                        {pkg.period}
+                      </span>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <p className="text-2xl font-medium tracking-tight md:text-3xl">
+                      {pkg.priceLead}
+                    </p>
+                    <p className="mt-1 text-sm text-warm-grey-1">
+                      {pkg.period}
+                    </p>
+                  </>
+                )}
               </div>
               <div className="mb-6 h-px bg-warm-grey-2/20" />
               <ul className="space-y-3">

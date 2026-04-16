@@ -28,7 +28,7 @@ export function PrintPitch({ ctx }: Props) {
     <SectionTransaksjon key="transaksjon" />,
     <SectionVerdivurdering key="verdivurdering" />,
     <SectionCaseStudy key="case" />,
-    <SectionTeam key="team" />,
+    <SectionTeam key="team" ctx={ctx} />,
     <SectionPricing key="pricing" />,
     <SectionBook key="book" clientName={ctx.clientName} />,
   ]

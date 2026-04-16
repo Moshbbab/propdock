@@ -4,6 +4,7 @@ import {
   Area,
   AreaChart,
   CartesianGrid,
+  ReferenceDot,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -21,6 +22,8 @@ const data = [
   { month: "Q4 '25", yield: 4.75, leiepris: 3480 },
   { month: "Q1 '26", yield: 4.7, leiepris: 3560 },
 ]
+
+const peak = data.reduce((a, b) => (a.yield >= b.yield ? a : b))
 
 function CustomTooltip({ active, payload, label }: any) {
   if (!active || !payload?.length) return null
@@ -56,20 +59,20 @@ export function MarkedspulsChart() {
           </p>
         </div>
         <div className="text-right">
-          <p className="text-2xl font-medium text-warm-white">4,7%</p>
-          <p className="text-xs text-warm-grey-2">+50 bps YoY</p>
+          <p className="text-2xl font-medium text-warm-white">4,70%</p>
+          <p className="text-xs text-light-blue">+50 bps YoY</p>
         </div>
       </div>
-      <div className="h-48">
+      <div className="h-52">
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart
             data={data}
-            margin={{ top: 10, right: 10, left: -20, bottom: 0 }}
+            margin={{ top: 16, right: 16, left: -16, bottom: 0 }}
           >
             <defs>
               <linearGradient id="yieldGradient" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#9EC5FE" stopOpacity={0.5} />
-                <stop offset="100%" stopColor="#9EC5FE" stopOpacity={0} />
+                <stop offset="0%" stopColor="#cbeef2" stopOpacity={0.35} />
+                <stop offset="100%" stopColor="#cbeef2" stopOpacity={0} />
               </linearGradient>
             </defs>
             <CartesianGrid
@@ -80,26 +83,63 @@ export function MarkedspulsChart() {
             <XAxis
               dataKey="month"
               stroke="rgba(255,255,255,0.4)"
-              tick={{ fontSize: 11 }}
+              tick={{ fontSize: 11, fill: "rgba(255,255,255,0.55)" }}
               axisLine={false}
               tickLine={false}
+              dy={4}
             />
             <YAxis
               stroke="rgba(255,255,255,0.4)"
-              tick={{ fontSize: 11 }}
+              tick={{ fontSize: 11, fill: "rgba(255,255,255,0.55)" }}
               axisLine={false}
               tickLine={false}
-              domain={[4, 5.2]}
-              ticks={[4, 4.25, 4.5, 4.75, 5]}
+              domain={[4.1, 5.0]}
+              ticks={[4.25, 4.5, 4.75, 5.0]}
               tickFormatter={(v: number) => `${v.toFixed(2)}%`}
+              width={56}
             />
-            <Tooltip content={<CustomTooltip />} />
+            <Tooltip
+              content={<CustomTooltip />}
+              cursor={{
+                stroke: "rgba(203, 238, 242, 0.4)",
+                strokeDasharray: "2 4",
+              }}
+            />
             <Area
               type="monotone"
               dataKey="yield"
-              stroke="#9EC5FE"
+              stroke="#cbeef2"
               strokeWidth={2}
               fill="url(#yieldGradient)"
+              isAnimationActive={false}
+              dot={{
+                r: 3,
+                fill: "#2c2825",
+                stroke: "#cbeef2",
+                strokeWidth: 1.5,
+              }}
+              activeDot={{
+                r: 5,
+                fill: "#cbeef2",
+                stroke: "#2c2825",
+                strokeWidth: 2,
+              }}
+            />
+            <ReferenceDot
+              x={peak.month}
+              y={peak.yield}
+              r={5}
+              fill="#cbeef2"
+              stroke="#2c2825"
+              strokeWidth={2}
+              label={{
+                value: "Topp",
+                position: "top",
+                offset: 10,
+                fill: "#cbeef2",
+                fontSize: 10,
+                fontWeight: 500,
+              }}
             />
           </AreaChart>
         </ResponsiveContainer>
